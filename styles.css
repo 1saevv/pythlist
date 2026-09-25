@@ -563,7 +563,8 @@ code {
 }
 
 .primary-button,
-.secondary-button {
+.secondary-button,
+.share-button {
   min-height: 44px;
   border: 0;
   border-radius: 0;
@@ -574,8 +575,8 @@ code {
 }
 
 .primary-button {
-  background: #c6ff00;
-  color: #050507;
+  background: #f8f5ff;
+  color: #261e35;
 }
 
 .secondary-button {
@@ -587,6 +588,35 @@ code {
 .secondary-button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.share-button {
+  display: inline-flex;
+  min-width: 150px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid rgba(83, 234, 253, 0.52);
+  background: linear-gradient(135deg, rgba(83, 234, 253, 0.96), rgba(242, 169, 255, 0.88));
+  color: #171120;
+  box-shadow: 0 0 0 1px rgba(83, 234, 253, 0.18), 0 18px 42px rgba(83, 234, 253, 0.18);
+}
+
+.share-button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+}
+
+.share-button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+  opacity: 0.48;
+  box-shadow: none;
 }
 
 .share-status {
@@ -616,7 +646,7 @@ code {
   height: 84px;
   flex: 0 0 auto;
   overflow: hidden;
-  border: 2px solid #c6ff00;
+  border: 2px solid var(--cyan);
 }
 
 .share-result-media img {
@@ -648,7 +678,7 @@ code {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 0;
-  background: #050507;
+  background: #171120;
   padding: 14px;
 }
 
@@ -672,7 +702,7 @@ code {
 .share-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.82);
+  background: rgba(10, 6, 18, 0.84);
 }
 
 .share-modal-panel {
@@ -681,7 +711,7 @@ code {
   width: min(100% - 32px, 980px);
   margin: 8vh auto 0;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(5, 5, 7, 0.96);
+  background: rgba(23, 17, 32, 0.98);
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
 }
 
@@ -689,7 +719,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(83, 234, 253, 0.18);
   padding: 16px 18px;
 }
 
@@ -699,6 +729,7 @@ code {
   font-size: 18px;
   letter-spacing: 0;
   text-transform: uppercase;
+  color: var(--cyan);
 }
 
 .icon-button {

@@ -369,10 +369,17 @@ async function drawShareCard(record, pythWon) {
   const image = await loadImage(imageUrl);
   const daysHeld = calculateDaysHeld(record.heldSince);
 
-  context.fillStyle = "#050507";
+  context.fillStyle = "#171120";
   context.fillRect(0, 0, 1200, 675);
 
-  context.strokeStyle = "rgba(198,255,0,0.16)";
+  const bg = context.createLinearGradient(0, 0, 1200, 675);
+  bg.addColorStop(0, "#241b35");
+  bg.addColorStop(0.5, "#342645");
+  bg.addColorStop(1, "#18333f");
+  context.fillStyle = bg;
+  context.fillRect(0, 0, 1200, 675);
+
+  context.strokeStyle = "rgba(83,234,253,0.14)";
   context.lineWidth = 1;
   for (let x = 0; x <= 1200; x += 48) {
     context.beginPath();
@@ -391,7 +398,7 @@ async function drawShareCard(record, pythWon) {
   context.lineWidth = 2;
   context.strokeRect(28, 28, 1144, 619);
 
-  context.fillStyle = "#c6ff00";
+  context.fillStyle = "#53eafd";
   context.font = "900 34px Archivo, sans-serif";
   context.fillText("PYTHLIST", 72, 92);
   context.fillStyle = "rgba(248,245,255,0.78)";
@@ -405,7 +412,7 @@ async function drawShareCard(record, pythWon) {
   context.drawImage(image, 72, 128, 456, 456);
   context.restore();
 
-  context.strokeStyle = "#c6ff00";
+  context.strokeStyle = "#f2a9ff";
   context.lineWidth = 4;
   context.strokeRect(72, 128, 456, 456);
 
@@ -427,7 +434,7 @@ async function drawShareCard(record, pythWon) {
   context.fillText("DAYS HELD", 612, 338);
   context.fillText("HELD SINCE", 880, 338);
 
-  context.fillStyle = "#c6ff00";
+  context.fillStyle = "#53eafd";
   context.font = "900 54px Archivo, sans-serif";
   context.fillText(`${daysHeld}`, 612, 392);
 
