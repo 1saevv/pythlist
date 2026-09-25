@@ -183,18 +183,35 @@
                 <span>PYTH won</span>
                 <input id="pythWon" type="text" inputmode="decimal" placeholder="Optional">
               </label>
-              <button class="primary-button" type="submit">Generate Share Card</button>
-              <button id="downloadCard" class="secondary-button" type="button" disabled>Download PNG</button>
+              <button class="primary-button" type="submit">Generate</button>
+              <button id="openSharePanel" class="secondary-button" type="button" disabled>Share</button>
             </form>
 
             <div class="share-status" id="shareStatus" role="status">Loading Pythenian dataset...</div>
 
-            <div class="card-preview">
-              <canvas id="shareCanvas" width="1200" height="675" aria-label="Generated Pythenian share card"></canvas>
-            </div>
+            <div id="shareResult" class="share-result" aria-live="polite"></div>
           </section>
         </div>
       </main>
+    </div>
+
+    <div id="shareModal" class="share-modal" aria-hidden="true">
+      <div class="share-modal-backdrop" data-share-close></div>
+      <section class="share-modal-panel" role="dialog" aria-modal="true" aria-label="Share card">
+        <div class="share-modal-head">
+          <h3>Share Card</h3>
+          <button class="icon-button" type="button" data-share-close aria-label="Close share panel">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+          </button>
+        </div>
+        <div class="card-preview">
+          <canvas id="shareCanvas" width="1200" height="675" aria-label="Generated Pythenian share card"></canvas>
+        </div>
+        <div class="share-modal-actions">
+          <button id="downloadCard" class="secondary-button" type="button">Save PNG</button>
+          <button id="copyCard" class="primary-button" type="button">Copy Image</button>
+        </div>
+      </section>
     </div>
 
     <script src="app.js"></script>

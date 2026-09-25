@@ -154,12 +154,17 @@ const shareForm = document.querySelector("#shareForm");
 const pythenianNumberInput = document.querySelector("#pythenianNumber");
 const pythWonInput = document.querySelector("#pythWon");
 const shareStatus = document.querySelector("#shareStatus");
+const shareResult = document.querySelector("#shareResult");
 const shareCanvas = document.querySelector("#shareCanvas");
+const openSharePanelButton = document.querySelector("#openSharePanel");
 const downloadCardButton = document.querySelector("#downloadCard");
+const copyCardButton = document.querySelector("#copyCard");
+const shareModal = document.querySelector("#shareModal");
 
 let currentFilter = "all";
 let pytheniansData = {};
 let currentCardBlobUrl = "";
+let currentShareRecord = null;
 
 const statusLabels = {
   prime: "Prime Time",
@@ -364,59 +369,138 @@ async function drawShareCard(record, pythWon) {
   const image = await loadImage(imageUrl);
   const daysHeld = calculateDaysHeld(record.heldSince);
 
-  const gradient = context.createLinearGradient(0, 0, 1200, 675);
-  gradient.addColorStop(0, "#241b35");
-  gradient.addColorStop(0.55, "#513169");
-  gradient.addColorStop(1, "#172f3a");
-  context.fillStyle = gradient;
+  context.fillStyle = "#050507";
   context.fillRect(0, 0, 1200, 675);
 
-  drawRoundedRect(context, 60, 60, 555, 555, 26);
-  context.save();
-  context.clip();
-  context.drawImage(image, 60, 60, 555, 555);
-  context.restore();
-
-  context.strokeStyle = "rgba(255,255,255,0.22)";
-  context.lineWidth = 3;
-  drawRoundedRect(context, 60, 60, 555, 555, 26);
-  context.stroke();
-
-  context.fillStyle = "#f8f5ff";
-  context.font = "800 72px Archivo, sans-serif";
-  context.fillText(`Pythenian #${record.number}`, 680, 150);
-
-  context.fillStyle = "rgba(248,245,255,0.72)";
-  context.font = "600 28px Archivo, sans-serif";
-  context.fillText("Current holding streak", 680, 225);
-
-  context.fillStyle = "#53eafd";
-  context.font = "800 88px Archivo, sans-serif";
-  context.fillText(`${daysHeld}`, 680, 330);
-
-  context.fillStyle = "#f8f5ff";
-  context.font = "700 34px Archivo, sans-serif";
-  context.fillText(daysHeld === 1 ? "day held" : "days held", 840, 326);
-
-  context.fillStyle = "rgba(248,245,255,0.7)";
-  context.font = "500 24px Archivo, sans-serif";
-  context.fillText(`Since ${new Date(record.heldSince).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric"
-  })}`, 680, 380);
-
-  if (pythWon) {
-    context.fillStyle = "#5ee9b5";
-    context.font = "800 42px Archivo, sans-serif";
-    context.fillText(`${pythWon} PYTH won`, 680, 460);
+  context.strokeStyle = "rgba(198,255,0,0.16)";
+  context.lineWidth = 1;
+  for (let x = 0; x <= 1200; x += 48) {
+    context.beginPath();
+    context.moveTo(x, 0);
+    context.lineTo(x, 675);
+    context.stroke();
+  }
+  for (let y = 0; y <= 675; y += 48) {
+    context.beginPath();
+    context.moveTo(0, y);
+    context.lineTo(1200, y);
+    context.stroke();
   }
 
-  context.fillStyle = "rgba(248,245,255,0.92)";
-  context.font = "800 36px Archivo, sans-serif";
-  context.fillText("PYTHLIST.COM", 680, 580);
+  context.strokeStyle = "rgba(255,255,255,0.14)";
+  context.lineWidth = 2;
+  context.strokeRect(28, 28, 1144, 619);
 
-  downloadCardButton.disabled = false;
+  context.fillStyle = "#c6ff00";
+  context.font = "900 34px Archivo, sans-serif";
+  context.fillText("PYTHLIST", 72, 92);
+  context.fillStyle = "rgba(248,245,255,0.78)";
+  context.font = "800 20px IBM Plex Mono, monospace";
+  context.fillText("PYTHLIST.COM", 950, 92);
+
+  context.save();
+  context.beginPath();
+  context.rect(72, 128, 456, 456);
+  context.clip();
+  context.drawImage(image, 72, 128, 456, 456);
+  context.restore();
+
+  context.strokeStyle = "#c6ff00";
+  context.lineWidth = 4;
+  context.strokeRect(72, 128, 456, 456);
+
+  context.fillStyle = "rgba(248,245,255,0.56)";
+  context.font = "800 24px IBM Plex Mono, monospace";
+  context.fillText("PYTHENIAN NFT", 590, 166);
+
+  context.fillStyle = "#f8f5ff";
+  context.font = "900 78px Archivo, sans-serif";
+  context.fillText(`#${record.number}`, 590, 250);
+
+  context.strokeStyle = "rgba(255,255,255,0.16)";
+  context.lineWidth = 2;
+  context.strokeRect(590, 300, 250, 116);
+  context.strokeRect(858, 300, 250, 116);
+
+  context.fillStyle = "rgba(248,245,255,0.52)";
+  context.font = "800 18px IBM Plex Mono, monospace";
+  context.fillText("DAYS HELD", 612, 338);
+  context.fillText("HELD SINCE", 880, 338);
+
+  context.fillStyle = "#c6ff00";
+  context.font = "900 54px Archivo, sans-serif";
+  context.fillText(`${daysHeld}`, 612, 392);
+
+  context.fillStyle = "#f8f5ff";
+  context.font = "900 28px IBM Plex Mono, monospace";
+  context.fillText(new Date(record.heldSince).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  }), 880, 386);
+
+  context.strokeStyle = "rgba(255,255,255,0.16)";
+  context.lineWidth = 2;
+  context.strokeRect(590, 448, 518, 92);
+
+  context.fillStyle = "rgba(248,245,255,0.52)";
+  context.font = "800 18px IBM Plex Mono, monospace";
+  context.fillText("PYTH WON", 612, 484);
+
+  context.fillStyle = pythWon ? "#5ee9b5" : "rgba(248,245,255,0.38)";
+  context.font = "900 34px IBM Plex Mono, monospace";
+  context.fillText(pythWon ? `${pythWon} PYTH` : "NOT ENTERED", 612, 522);
+
+  context.fillStyle = "rgba(248,245,255,0.42)";
+  context.font = "800 16px IBM Plex Mono, monospace";
+  context.fillText("verified marketplace sale", 590, 598);
+}
+
+function renderShareResult(record) {
+  if (!shareResult) return;
+
+  const daysHeld = calculateDaysHeld(record.heldSince);
+  const imageUrl = record.localImage ? `data/${record.localImage}` : record.image;
+
+  shareResult.innerHTML = `
+    <div class="share-result-media">
+      <img src="${imageUrl}" alt="">
+    </div>
+    <div class="share-result-body">
+      <p>Pythenian #${record.number}</p>
+      <strong>${daysHeld} ${daysHeld === 1 ? "day" : "days"} held</strong>
+      <span>Since ${new Date(record.heldSince).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      })}</span>
+    </div>
+  `;
+}
+
+function openSharePanel() {
+  if (!currentShareRecord || !shareModal) return;
+  shareModal.classList.add("active");
+  shareModal.setAttribute("aria-hidden", "false");
+}
+
+function closeSharePanel() {
+  shareModal?.classList.remove("active");
+  shareModal?.setAttribute("aria-hidden", "true");
+}
+
+async function copyCurrentCard() {
+  if (!shareCanvas) return;
+
+  try {
+    const blob = await new Promise((resolve) => shareCanvas.toBlob(resolve, "image/png"));
+    await navigator.clipboard.write([
+      new ClipboardItem({ "image/png": blob })
+    ]);
+    shareStatus.textContent = "Card copied to clipboard.";
+  } catch (error) {
+    shareStatus.textContent = "Copy is not available in this browser. Use Save PNG.";
+  }
 }
 
 async function handleShareFormSubmit(event) {
@@ -425,16 +509,19 @@ async function handleShareFormSubmit(event) {
   const number = pythenianNumberInput.value.trim();
   const record = pytheniansData[number];
 
-  downloadCardButton.disabled = true;
+  openSharePanelButton.disabled = true;
+  currentShareRecord = null;
 
   if (!record) {
     shareStatus.textContent = `Pythenian #${number} is not in the loaded dataset yet.`;
+    shareResult.innerHTML = "";
     drawEmptyCard();
     return;
   }
 
   if (record.verification !== "verified" || !record.heldSince) {
     shareStatus.textContent = `Pythenian #${number} needs transfer-history verification before a card can be generated.`;
+    shareResult.innerHTML = "";
     drawEmptyCard();
     return;
   }
@@ -443,6 +530,9 @@ async function handleShareFormSubmit(event) {
 
   try {
     await drawShareCard(record, pythWonInput.value.trim());
+    currentShareRecord = record;
+    openSharePanelButton.disabled = false;
+    renderShareResult(record);
     shareStatus.textContent = `Pythenian #${number} card is ready.`;
   } catch (error) {
     shareStatus.textContent = "Could not load the Pythenian image for this card.";
@@ -451,7 +541,7 @@ async function handleShareFormSubmit(event) {
 }
 
 function downloadCurrentCard() {
-  if (!shareCanvas || downloadCardButton.disabled) return;
+  if (!shareCanvas || !currentShareRecord) return;
 
   shareCanvas.toBlob((blob) => {
     if (!blob) return;
@@ -507,6 +597,7 @@ sidebar?.querySelectorAll("a").forEach((link) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     setMenuOpen(false);
+    closeSharePanel();
   }
 });
 
@@ -519,4 +610,9 @@ renderProjects();
 renderNews();
 loadPytheniansData();
 shareForm?.addEventListener("submit", handleShareFormSubmit);
+openSharePanelButton?.addEventListener("click", openSharePanel);
 downloadCardButton?.addEventListener("click", downloadCurrentCard);
+copyCardButton?.addEventListener("click", copyCurrentCard);
+document.querySelectorAll("[data-share-close]").forEach((button) => {
+  button.addEventListener("click", closeSharePanel);
+});
