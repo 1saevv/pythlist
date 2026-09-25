@@ -67,7 +67,13 @@ jobs:
           fi
 
       - name: Commit dataset
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Update Pythenians dataset"
-          file_pattern: data/pythenians.json data/pythenians.poc.json package-lock.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/pythenians.json data/pythenians.poc.json package-lock.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No dataset changes to commit."
+            exit 0
+          fi
+          git commit -m "Update Pythenians dataset"
+          git push
