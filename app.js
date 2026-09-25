@@ -369,17 +369,24 @@ async function drawShareCard(record, pythWon) {
   const image = await loadImage(imageUrl);
   const daysHeld = calculateDaysHeld(record.heldSince);
 
-  context.fillStyle = "#171120";
+  context.fillStyle = "#261e35";
   context.fillRect(0, 0, 1200, 675);
 
   const bg = context.createLinearGradient(0, 0, 1200, 675);
-  bg.addColorStop(0, "#241b35");
-  bg.addColorStop(0.5, "#342645");
-  bg.addColorStop(1, "#18333f");
+  bg.addColorStop(0, "#3a2d48");
+  bg.addColorStop(0.46, "#56396e");
+  bg.addColorStop(1, "#234a58");
   context.fillStyle = bg;
   context.fillRect(0, 0, 1200, 675);
 
-  context.strokeStyle = "rgba(83,234,253,0.14)";
+  const sheen = context.createRadialGradient(930, 110, 60, 930, 110, 720);
+  sheen.addColorStop(0, "rgba(83,234,253,0.24)");
+  sheen.addColorStop(0.52, "rgba(242,169,255,0.12)");
+  sheen.addColorStop(1, "rgba(242,169,255,0)");
+  context.fillStyle = sheen;
+  context.fillRect(0, 0, 1200, 675);
+
+  context.strokeStyle = "rgba(248,245,255,0.10)";
   context.lineWidth = 1;
   for (let x = 0; x <= 1200; x += 48) {
     context.beginPath();
@@ -394,7 +401,7 @@ async function drawShareCard(record, pythWon) {
     context.stroke();
   }
 
-  context.strokeStyle = "rgba(255,255,255,0.14)";
+  context.strokeStyle = "rgba(255,255,255,0.18)";
   context.lineWidth = 2;
   context.strokeRect(28, 28, 1144, 619);
 
@@ -424,7 +431,7 @@ async function drawShareCard(record, pythWon) {
   context.font = "900 78px Archivo, sans-serif";
   context.fillText(`#${record.number}`, 590, 250);
 
-  context.strokeStyle = "rgba(255,255,255,0.16)";
+  context.strokeStyle = "rgba(255,255,255,0.20)";
   context.lineWidth = 2;
   context.strokeRect(590, 300, 250, 116);
   context.strokeRect(858, 300, 250, 116);
@@ -446,7 +453,7 @@ async function drawShareCard(record, pythWon) {
     year: "numeric"
   }), 880, 386);
 
-  context.strokeStyle = "rgba(255,255,255,0.16)";
+  context.strokeStyle = "rgba(255,255,255,0.20)";
   context.lineWidth = 2;
   context.strokeRect(590, 448, 518, 92);
 

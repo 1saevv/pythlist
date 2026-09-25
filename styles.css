@@ -538,7 +538,9 @@ code {
   align-items: end;
   border: 1px solid var(--line);
   border-radius: 0;
-  background: rgba(5, 5, 7, 0.72);
+  background:
+    linear-gradient(135deg, rgba(58, 45, 72, 0.94), rgba(49, 41, 64, 0.82)),
+    rgba(49, 41, 64, 0.9);
   padding: 16px;
 }
 
@@ -557,7 +559,7 @@ code {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0;
   outline: 0;
-  background: rgba(20, 15, 30, 0.26);
+  background: rgba(248, 245, 255, 0.06);
   color: var(--text);
   padding: 0 12px;
 }
@@ -598,7 +600,7 @@ code {
   gap: 10px;
   border: 1px solid rgba(83, 234, 253, 0.52);
   background: linear-gradient(135deg, rgba(83, 234, 253, 0.96), rgba(242, 169, 255, 0.88));
-  color: #171120;
+  color: #261e35;
   box-shadow: 0 0 0 1px rgba(83, 234, 253, 0.18), 0 18px 42px rgba(83, 234, 253, 0.18);
 }
 
@@ -637,7 +639,9 @@ code {
   align-items: center;
   gap: 16px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(5, 5, 7, 0.66);
+  background:
+    linear-gradient(135deg, rgba(49, 41, 64, 0.9), rgba(58, 45, 72, 0.78)),
+    rgba(49, 41, 64, 0.9);
   padding: 14px;
 }
 
@@ -678,7 +682,9 @@ code {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 0;
-  background: #171120;
+  background:
+    linear-gradient(135deg, rgba(58, 45, 72, 0.95), rgba(35, 74, 88, 0.58)),
+    var(--panel);
   padding: 14px;
 }
 
@@ -702,7 +708,7 @@ code {
 .share-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(10, 6, 18, 0.84);
+  background: rgba(38, 30, 53, 0.78);
 }
 
 .share-modal-panel {
@@ -711,7 +717,9 @@ code {
   width: min(100% - 32px, 980px);
   margin: 8vh auto 0;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(23, 17, 32, 0.98);
+  background:
+    linear-gradient(135deg, rgba(49, 41, 64, 0.98), rgba(58, 45, 72, 0.96)),
+    var(--panel);
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
 }
 
