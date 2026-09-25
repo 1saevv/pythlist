@@ -533,7 +533,7 @@ code {
 
 .share-form {
   display: grid;
-  grid-template-columns: minmax(160px, 1fr) minmax(140px, 1fr) auto auto;
+  grid-template-columns: minmax(160px, 1fr) minmax(140px, 1fr) auto;
   gap: 12px;
   align-items: end;
   border: 1px solid var(--line);
@@ -661,6 +661,8 @@ code {
 
 .share-result-body {
   display: grid;
+  min-width: 0;
+  flex: 1;
   gap: 4px;
 }
 
@@ -676,6 +678,12 @@ code {
   color: var(--text);
   font-size: clamp(28px, 5vw, 52px);
   line-height: 1;
+}
+
+.result-share-button {
+  min-width: 154px;
+  min-height: 54px;
+  flex: 0 0 auto;
 }
 
 .card-preview {
@@ -1166,6 +1174,15 @@ code {
 
   .share-form {
     grid-template-columns: 1fr;
+  }
+
+  .share-result {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .result-share-button {
+    width: 100%;
   }
 
   .share-modal-panel {

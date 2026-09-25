@@ -156,7 +156,6 @@ const pythWonInput = document.querySelector("#pythWon");
 const shareStatus = document.querySelector("#shareStatus");
 const shareResult = document.querySelector("#shareResult");
 const shareCanvas = document.querySelector("#shareCanvas");
-const openSharePanelButton = document.querySelector("#openSharePanel");
 const downloadCardButton = document.querySelector("#downloadCard");
 const copyCardButton = document.querySelector("#copyCard");
 const shareModal = document.querySelector("#shareModal");
@@ -489,7 +488,13 @@ function renderShareResult(record) {
         day: "numeric"
       })}</span>
     </div>
+    <button class="share-button result-share-button" type="button" data-open-share>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"></path><path d="M16 6 12 2 8 6"></path><path d="M12 2v13"></path></svg>
+      Share
+    </button>
   `;
+
+  shareResult.querySelector("[data-open-share]")?.addEventListener("click", openSharePanel);
 }
 
 function openSharePanel() {
@@ -523,7 +528,6 @@ async function handleShareFormSubmit(event) {
   const number = pythenianNumberInput.value.trim();
   const record = pytheniansData[number];
 
-  openSharePanelButton.disabled = true;
   currentShareRecord = null;
 
   if (!record) {
@@ -545,7 +549,6 @@ async function handleShareFormSubmit(event) {
   try {
     await drawShareCard(record, pythWonInput.value.trim());
     currentShareRecord = record;
-    openSharePanelButton.disabled = false;
     renderShareResult(record);
     shareStatus.textContent = `Pythenian #${number} card is ready.`;
   } catch (error) {
@@ -624,7 +627,6 @@ renderProjects();
 renderNews();
 loadPytheniansData();
 shareForm?.addEventListener("submit", handleShareFormSubmit);
-openSharePanelButton?.addEventListener("click", openSharePanel);
 downloadCardButton?.addEventListener("click", downloadCurrentCard);
 copyCardButton?.addEventListener("click", copyCurrentCard);
 document.querySelectorAll("[data-share-close]").forEach((button) => {
