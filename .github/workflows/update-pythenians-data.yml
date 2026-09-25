@@ -2,6 +2,16 @@ name: Update Pythenians data
 
 on:
   workflow_dispatch:
+    inputs:
+      full_collection:
+        description: "Build the full collection dataset"
+        required: true
+        default: false
+        type: boolean
+      numbers:
+        description: "Comma-separated Pythenian numbers for a PoC run"
+        required: true
+        default: "22,1270,2120,564,3574"
   schedule:
     - cron: "17 3 * * *"
 
@@ -47,10 +57,15 @@ jobs:
           SOLANA_RPC_URL: ${{ secrets.SOLANA_RPC_URL }}
           RPC_THROTTLE_MS: "500"
           HISTORY_PAGE_LIMIT: "20"
-        run: npm run pythenians:build
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.full_collection }}" != "true" ]; then
+            node scripts/build-pythenians-dataset.mjs --numbers="${{ inputs.numbers }}" --out=data/pythenians.poc.json
+          else
+            npm run pythenians:build
+          fi
 
       - name: Commit dataset
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update Pythenians dataset"
-          file_pattern: data/pythenians.json package-lock.json
+          file_pattern: data/pythenians.json data/pythenians.poc.json package-lock.json
