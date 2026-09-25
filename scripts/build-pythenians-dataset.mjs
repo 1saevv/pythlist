@@ -11,7 +11,6 @@ const PYTHENIANS_UPDATE_AUTHORITY = "PyTHY3DyjVQe9EQVU7jYriVKd7dJ6xiyyyPvVWxpiMN
 const PYTHENIANS_COLLECTION_MINT = "pyTh2UtBKfuDW6KCdT3swospYeoLmmKaGujWA91Moru";
 const METADATA_BASE_URL = "https://ipfs.pythenians.xyz/metadata";
 const COLLECTION_SIZE = 4668;
-const DAY_MS = 24 * 60 * 60 * 1000;
 
 const args = parseArgs(process.argv.slice(2));
 const rpcUrl = process.env.SOLANA_RPC_URL || DEFAULT_RPC_URL;
@@ -52,7 +51,6 @@ async function main() {
 
   const records = {};
   const state = {};
-  const asOf = new Date();
 
   for (const number of numbers) {
     const key = String(number);
@@ -115,75 +113,63 @@ async function main() {
         verification = "unresolved";
         heldSinceSource = "unresolved";
 
-        records[key] = {
+        records[key] = makePublicRecord({
           number,
           mint,
           image: officialMetadata.image,
           localImage,
           heldSince: null,
-          daysHeldAtBuild: null,
           heldSinceSource,
-          verification,
-          updatedAt: asOf.toISOString()
-        };
+          verification
+        });
 
         state[key] = {
           owner: currentOwner,
-          tokenAccount: currentTokenAccount,
-          checkedAt: asOf.toISOString()
+          tokenAccount: currentTokenAccount
         };
 
         continue;
       }
 
-      records[key] = {
+      records[key] = makePublicRecord({
         number,
         mint,
         image: officialMetadata.image,
         localImage,
         heldSince,
-        daysHeldAtBuild: daysBetween(new Date(heldSince), asOf),
         heldSinceSource,
-        verification,
-        updatedAt: asOf.toISOString()
-      };
+        verification
+      });
 
       state[key] = {
         owner: currentOwner,
-        tokenAccount: currentTokenAccount,
-        checkedAt: asOf.toISOString()
+        tokenAccount: currentTokenAccount
       };
     } catch (error) {
       console.warn(`  unresolved: ${String(error?.message || error).slice(0, 220)}`);
 
       if (previousRecord?.heldSince) {
-        records[key] = {
-          ...previousRecord,
-          updatedAt: asOf.toISOString(),
-          carriedForward: true
-        };
+        records[key] = makePublicRecord(previousRecord);
         if (previousPrivate) {
           state[key] = {
-            ...previousPrivate,
-            checkedAt: asOf.toISOString()
+            owner: previousPrivate.owner,
+            tokenAccount: previousPrivate.tokenAccount
           };
         }
         console.warn("  carried forward previous verified record");
         continue;
       }
 
-      records[key] = {
+      records[key] = makePublicRecord({
         number,
         mint,
         image: officialMetadata?.image || previousRecord?.image || null,
         localImage: localImage || previousRecord?.localImage || null,
         heldSince: null,
-        daysHeldAtBuild: null,
         heldSinceSource: "unresolved",
         verification: "unresolved",
-        error: String(error?.message || error).slice(0, 220),
-        updatedAt: asOf.toISOString()
-      };
+        error: String(error?.message || error).slice(0, 220)
+      });
     }
   }
 
@@ -195,6 +181,24 @@ async function main() {
   console.log(`\nWrote ${Object.keys(records).length} public records to ${outFile}`);
   console.log(`Verified: ${verifiedCount}; unresolved: ${unresolvedCount}`);
   console.log(`Wrote private action cache to ${stateFile}`);
+}
+
+function makePublicRecord(record) {
+  const publicRecord = {
+    number: record.number,
+    mint: record.mint,
+    image: record.image,
+    localImage: record.localImage,
+    heldSince: record.heldSince,
+    heldSinceSource: record.heldSinceSource,
+    verification: record.verification
+  };
+
+  if (record.error) {
+    publicRecord.error = record.error;
+  }
+
+  return publicRecord;
 }
 
 function parseArgs(rawArgs) {
@@ -609,10 +613,6 @@ function sortObjectByNumericKeys(value) {
   return Object.fromEntries(
     Object.entries(value).sort(([a], [b]) => Number(a) - Number(b))
   );
-}
-
-function daysBetween(start, end) {
-  return Math.max(0, Math.floor((end.getTime() - start.getTime()) / DAY_MS));
 }
 
 function sleep(ms) {

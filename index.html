@@ -177,19 +177,17 @@
             <form id="shareForm" class="share-form">
               <label>
                 <span>Pythenians number</span>
-                <input id="pythenianNumber" type="number" min="1" step="1" inputmode="numeric" placeholder="Enter your Pythenians NFT number. Example 3574" required>
+                <input id="pythenianNumber" type="text" inputmode="numeric" autocomplete="off" placeholder="Enter your Pythenians NFT number. Example 3574">
               </label>
               <label>
                 <span>Pyth Wheel rewards</span>
                 <input id="pythWon" type="text" inputmode="decimal" placeholder="Optional PYTH amount">
               </label>
-              <button class="primary-button generate-button" type="submit">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4"></path><path d="M12 17v4"></path><path d="M3 12h4"></path><path d="M17 12h4"></path><path d="m5.6 5.6 2.8 2.8"></path><path d="m15.6 15.6 2.8 2.8"></path><path d="m18.4 5.6-2.8 2.8"></path><path d="m8.4 15.6-2.8 2.8"></path></svg>
-                Generate
-              </button>
             </form>
 
             <div class="share-status" id="shareStatus" role="status">Loading Pythenian dataset...</div>
+
+            <div id="shareSuggestions" class="share-suggestions" aria-live="polite"></div>
 
             <div id="shareResult" class="share-result" aria-live="polite"></div>
           </section>

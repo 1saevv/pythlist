@@ -533,7 +533,7 @@ code {
 
 .share-form {
   display: grid;
-  grid-template-columns: minmax(160px, 1fr) minmax(140px, 1fr) auto;
+  grid-template-columns: minmax(160px, 1fr) minmax(140px, 1fr);
   gap: 12px;
   align-items: end;
   border: 1px solid var(--line);
@@ -664,6 +664,110 @@ code {
   font-size: 14px;
 }
 
+.share-suggestions {
+  display: grid;
+  gap: 10px;
+}
+
+.share-suggestions:empty {
+  display: none;
+}
+
+.share-suggestions-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.share-suggestions-head small {
+  color: rgba(248, 245, 255, 0.42);
+  font: inherit;
+}
+
+.share-suggestions-empty {
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  color: var(--muted);
+  padding: 14px;
+}
+
+.share-suggestions-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.share-suggestion {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(49, 41, 64, 0.9), rgba(58, 45, 72, 0.72)),
+    rgba(49, 41, 64, 0.9);
+  color: var(--text);
+  padding: 12px;
+  text-align: left;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.share-suggestion:has(.share-button:hover),
+.share-suggestion:has(.share-button:focus-visible) {
+  border-color: rgba(242, 169, 255, 0.36);
+  background:
+    linear-gradient(135deg, rgba(58, 45, 72, 0.96), rgba(49, 41, 64, 0.84)),
+    rgba(49, 41, 64, 0.94);
+  transform: translateY(-1px);
+}
+
+.share-suggestion-media {
+  display: block;
+  width: 84px;
+  height: 84px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 2px solid var(--cyan);
+}
+
+.share-suggestion-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.share-suggestion-body {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 4px;
+}
+
+.share-suggestion-body span,
+.share-suggestion-body small {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.share-suggestion-body span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.share-suggestion-body strong {
+  color: var(--text);
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1;
+}
+
 .share-result {
   min-height: 112px;
 }
@@ -727,12 +831,12 @@ code {
 
 .card-preview {
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(248, 245, 255, 0.12);
   border-radius: 0;
   background:
-    linear-gradient(135deg, rgba(58, 45, 72, 0.95), rgba(35, 74, 88, 0.58)),
-    var(--panel);
-  padding: 12px;
+    linear-gradient(180deg, rgba(58, 45, 72, 0.72), rgba(38, 30, 53, 0.88)),
+    #261e35;
+  padding: 14px;
 }
 
 .card-preview canvas {
@@ -755,7 +859,7 @@ code {
 .share-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(38, 30, 53, 0.78);
+  background: rgba(9, 5, 20, 0.82);
 }
 
 .share-modal-panel {
@@ -765,20 +869,20 @@ code {
   max-height: calc(100vh - 44px);
   margin: 22px auto 0;
   overflow: auto;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 20px;
+  border: 1px solid rgba(248, 245, 255, 0.16);
+  border-radius: 0;
   background:
-    linear-gradient(135deg, rgba(49, 41, 64, 0.98), rgba(58, 45, 72, 0.96)),
-    var(--panel);
-  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+    linear-gradient(180deg, rgba(58, 45, 72, 0.98), rgba(38, 30, 53, 0.98)),
+    #261e35;
+  box-shadow: 0 30px 90px rgba(9, 5, 20, 0.42);
 }
 
 .share-modal-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(83, 234, 253, 0.18);
-  padding: 12px 14px;
+  border-bottom: 1px solid rgba(248, 245, 255, 0.12);
+  padding: 14px 16px;
 }
 
 .share-modal-head h3 {
@@ -795,9 +899,9 @@ code {
   width: 38px;
   height: 38px;
   place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 12px;
-  background: transparent;
+  border: 1px solid rgba(248, 245, 255, 0.14);
+  border-radius: 0;
+  background: rgba(248, 245, 255, 0.08);
   color: var(--text);
   cursor: pointer;
 }
@@ -815,7 +919,8 @@ code {
 .share-modal-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  border-top: 1px solid rgba(248, 245, 255, 0.12);
 }
 
 .share-modal-actions button {
@@ -824,15 +929,18 @@ code {
   border-right: 0;
   border-bottom: 0;
   border-radius: 0;
+  background: rgba(248, 245, 255, 0.08);
+  color: var(--text);
+}
+
+.share-modal-actions button + button {
+  border-left-color: rgba(248, 245, 255, 0.12);
+  background: rgba(248, 245, 255, 0.12);
+  color: var(--text);
 }
 
 .share-modal-actions button:first-child {
   border-left: 0;
-  border-bottom-left-radius: 20px;
-}
-
-.share-modal-actions button:last-child {
-  border-bottom-right-radius: 20px;
 }
 
 .news-item {
@@ -1233,6 +1341,11 @@ code {
   }
 
   .share-result {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .share-suggestion {
     align-items: stretch;
     flex-direction: column;
   }

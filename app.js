@@ -154,6 +154,7 @@ const shareForm = document.querySelector("#shareForm");
 const pythenianNumberInput = document.querySelector("#pythenianNumber");
 const pythWonInput = document.querySelector("#pythWon");
 const shareStatus = document.querySelector("#shareStatus");
+const shareSuggestions = document.querySelector("#shareSuggestions");
 const shareResult = document.querySelector("#shareResult");
 const shareCanvas = document.querySelector("#shareCanvas");
 const downloadCardButton = document.querySelector("#downloadCard");
@@ -164,6 +165,7 @@ let currentFilter = "all";
 let pytheniansData = {};
 let currentCardBlobUrl = "";
 let currentShareRecord = null;
+let shareGenerationId = 0;
 
 const statusLabels = {
   prime: "Prime Time",
@@ -308,8 +310,9 @@ async function loadPytheniansData() {
 
     pytheniansData = await datasetResponse.json();
     const verifiedCount = Object.values(pytheniansData).filter((item) => item.verification === "verified").length;
-    shareStatus.textContent = `${verifiedCount} verified Pythenians loaded.`;
+    shareStatus.textContent = `${verifiedCount} verified Pythenians loaded. Pick one below or type your number.`;
     drawEmptyCard();
+    updateShareExperience();
   } catch (error) {
     shareStatus.textContent = "Dataset is not available yet.";
     drawEmptyCard();
@@ -373,132 +376,147 @@ async function drawShareCard(record, pythWon) {
 
   context.clearRect(0, 0, 1200, 675);
 
-  context.fillStyle = "#261e35";
+  const heldDate = new Date(record.heldSince);
+  const heldMonth = heldDate.toLocaleDateString("en-US", { month: "short" }).toUpperCase();
+  const heldDay = heldDate.toLocaleDateString("en-US", { day: "numeric" });
+  const heldYear = heldDate.getFullYear().toString();
+  const daysText = `${daysHeld}`;
+  const daysFontSize = daysText.length >= 4 ? 72 : daysText.length === 3 ? 88 : 104;
+
+  const paper = context.createLinearGradient(0, 0, 1200, 675);
+  paper.addColorStop(0, "#4a3561");
+  paper.addColorStop(0.38, "#342544");
+  paper.addColorStop(0.72, "#251b34");
+  paper.addColorStop(1, "#17111f");
+  context.fillStyle = paper;
   context.fillRect(0, 0, 1200, 675);
 
-  const bg = context.createLinearGradient(0, 0, 1200, 675);
-  bg.addColorStop(0, "#3a2d48");
-  bg.addColorStop(0.46, "#56396e");
-  bg.addColorStop(1, "#234a58");
-  context.fillStyle = bg;
+  const warmGlow = context.createRadialGradient(118, 96, 24, 118, 96, 620);
+  warmGlow.addColorStop(0, "rgba(242,169,255,0.28)");
+  warmGlow.addColorStop(0.44, "rgba(124,84,158,0.14)");
+  warmGlow.addColorStop(1, "rgba(124,84,158,0)");
+  context.fillStyle = warmGlow;
   context.fillRect(0, 0, 1200, 675);
 
-  const sheen = context.createRadialGradient(930, 110, 60, 930, 110, 720);
-  sheen.addColorStop(0, "rgba(83,234,253,0.24)");
-  sheen.addColorStop(0.52, "rgba(242,169,255,0.12)");
-  sheen.addColorStop(1, "rgba(242,169,255,0)");
-  context.fillStyle = sheen;
+  const coolGlow = context.createRadialGradient(1010, 154, 12, 1010, 154, 520);
+  coolGlow.addColorStop(0, "rgba(118,101,185,0.22)");
+  coolGlow.addColorStop(0.52, "rgba(83,234,253,0.06)");
+  coolGlow.addColorStop(1, "rgba(83,234,253,0)");
+  context.fillStyle = coolGlow;
   context.fillRect(0, 0, 1200, 675);
-
-  const panelFill = "rgba(49,41,64,0.62)";
-  const panelStroke = "rgba(248,245,255,0.14)";
-
-  context.shadowColor = "rgba(9,5,20,0.32)";
-  context.shadowBlur = 46;
-  context.shadowOffsetY = 18;
-  context.fillStyle = "rgba(49,41,64,0.42)";
-  drawRoundedRect(context, 44, 44, 1112, 587, 30);
-  context.fill();
-  context.shadowColor = "transparent";
-  context.strokeStyle = panelStroke;
-  context.lineWidth = 2;
-  context.stroke();
 
   context.save();
-  context.globalAlpha = 0.2;
-  context.drawImage(brandMark, 842, -18, 300, 300);
+  context.globalAlpha = 0.34;
+  context.filter = "brightness(1.85) saturate(0.55)";
+  context.drawImage(brandMark, 998, 30, 178, 178);
+  context.filter = "none";
   context.restore();
 
-  context.shadowColor = "rgba(9,5,20,0.38)";
-  context.shadowBlur = 34;
-  context.shadowOffsetY = 16;
-  context.fillStyle = "rgba(36,27,53,0.72)";
-  context.fillRect(72, 72, 504, 530);
-  context.shadowColor = "transparent";
+  context.fillStyle = "rgba(248,245,255,0.035)";
+  context.beginPath();
+  context.moveTo(0, 0);
+  context.lineTo(184, 0);
+  context.lineTo(110, 675);
+  context.lineTo(0, 675);
+  context.closePath();
+  context.fill();
+
+  context.fillStyle = "rgba(248,245,255,0.026)";
+  context.beginPath();
+  context.moveTo(1016, 0);
+  context.lineTo(1200, 0);
+  context.lineTo(1200, 675);
+  context.lineTo(1090, 675);
+  context.closePath();
+  context.fill();
+
+  context.strokeStyle = "rgba(248,245,255,0.14)";
+  context.lineWidth = 1;
+  context.strokeRect(36, 36, 1128, 603);
+
+  context.fillStyle = "#181221";
+  context.fillRect(72, 78, 510, 522);
 
   context.save();
   context.beginPath();
-  context.rect(90, 90, 468, 468);
+  context.rect(96, 102, 462, 462);
   context.clip();
-  context.drawImage(image, 90, 90, 468, 468);
+  context.drawImage(image, 96, 102, 462, 462);
   context.restore();
 
+  context.strokeStyle = "rgba(248,245,255,0.42)";
+  context.lineWidth = 2;
+  context.strokeRect(96, 102, 462, 462);
+
+  context.fillStyle = "rgba(248,245,255,0.68)";
+  context.font = "900 17px IBM Plex Mono, monospace";
+  context.fillText("PYTHENIANS NFT", 640, 104);
+
+  context.fillStyle = "#f8f5ff";
+  context.font = "900 122px Archivo, sans-serif";
+  context.fillText(`#${record.number}`, 638, 222);
+
+  context.fillStyle = "rgba(248,245,255,0.56)";
+  context.font = "700 24px Archivo, sans-serif";
+  context.fillText("Current ownership streak", 642, 262);
+
+  context.strokeStyle = "rgba(248,245,255,0.17)";
+  context.lineWidth = 2;
   context.beginPath();
-  context.rect(90, 90, 468, 468);
-  context.strokeStyle = "rgba(242,169,255,0.42)";
-  context.lineWidth = 3;
+  context.moveTo(640, 306);
+  context.lineTo(1104, 306);
   context.stroke();
 
-  context.fillStyle = "rgba(248,245,255,0.58)";
-  context.font = "800 20px IBM Plex Mono, monospace";
-  context.fillText("PYTHENIANS NFT", 632, 118);
-
-  context.fillStyle = "#f8f5ff";
-  context.font = "900 86px Archivo, sans-serif";
-  context.fillText(`#${record.number}`, 632, 206);
-
-  context.fillStyle = "rgba(248,245,255,0.52)";
-  context.font = "600 23px Archivo, sans-serif";
-  context.fillText("Current ownership streak", 636, 244);
-
-  context.fillStyle = panelFill;
-  drawRoundedRect(context, 632, 284, 250, 142, 22);
-  context.fill();
-  drawRoundedRect(context, 904, 284, 204, 142, 22);
-  context.fill();
-  context.strokeStyle = panelStroke;
-  context.lineWidth = 2;
-  drawRoundedRect(context, 632, 284, 250, 142, 22);
-  context.stroke();
-  drawRoundedRect(context, 904, 284, 204, 142, 22);
-  context.stroke();
-
-  context.fillStyle = "rgba(248,245,255,0.48)";
-  context.font = "800 17px IBM Plex Mono, monospace";
-  context.fillText("DAYS OWNED", 656, 324);
-  context.fillText("SINCE", 928, 324);
-
-  context.fillStyle = "#f8f5ff";
-  context.font = "900 68px Archivo, sans-serif";
-  context.fillText(`${daysHeld}`, 656, 394);
-
-  context.fillStyle = "#f8f5ff";
-  context.font = "800 25px Archivo, sans-serif";
-  context.fillText(new Date(record.heldSince).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric"
-  }), 928, 374);
-  context.fillStyle = "rgba(248,245,255,0.48)";
-  context.font = "700 17px IBM Plex Mono, monospace";
-  context.fillText(new Date(record.heldSince).getFullYear().toString(), 928, 402);
-
-  context.fillStyle = panelFill;
-  drawRoundedRect(context, 632, 462, 476, 92, 22);
-  context.fill();
-  context.strokeStyle = panelStroke;
-  context.lineWidth = 2;
-  drawRoundedRect(context, 632, 462, 476, 92, 22);
+  context.beginPath();
+  context.moveTo(640, 464);
+  context.lineTo(1104, 464);
   context.stroke();
 
   context.fillStyle = "rgba(248,245,255,0.48)";
   context.font = "800 16px IBM Plex Mono, monospace";
-  context.fillText("$PYTH WHEEL REWARDS", 656, 497);
+  context.fillText("DAYS OWNED", 640, 346);
+  context.fillText("OWNED SINCE", 890, 346);
 
-  context.fillStyle = pythWon ? "#f8f5ff" : "rgba(248,245,255,0.38)";
-  context.font = "900 34px IBM Plex Mono, monospace";
-  context.fillText(pythWon ? `${pythWon} $PYTH` : "NOT ENTERED", 656, 535);
+  context.fillStyle = "#f8f5ff";
+  context.font = `900 ${daysFontSize}px Archivo, sans-serif`;
+  context.fillText(daysText, 638, 430);
 
-  context.strokeStyle = "rgba(83,234,253,0.32)";
-  context.lineWidth = 3;
+  context.fillStyle = "#f8f5ff";
+  context.font = "900 48px Archivo, sans-serif";
+  context.fillText(`${heldMonth} ${heldDay}`, 890, 404);
+  context.fillStyle = "rgba(248,245,255,0.56)";
+  context.font = "800 22px IBM Plex Mono, monospace";
+  context.fillText(heldYear, 892, 434);
+
+  context.strokeStyle = "rgba(248,245,255,0.17)";
+  context.lineWidth = 2;
   context.beginPath();
-  context.moveTo(632, 586);
-  context.lineTo(790, 586);
+  context.moveTo(640, 554);
+  context.lineTo(1104, 554);
   context.stroke();
 
-  context.fillStyle = "rgba(248,245,255,0.78)";
-  context.font = "800 22px IBM Plex Mono, monospace";
+  context.fillStyle = "rgba(248,245,255,0.48)";
+  context.font = "800 15px IBM Plex Mono, monospace";
+  context.fillText("$PYTH WHEEL REWARDS", 640, 512);
+
+  context.fillStyle = pythWon ? "#5ee9b5" : "rgba(248,245,255,0.38)";
+  context.font = "900 35px IBM Plex Mono, monospace";
+  context.fillText(pythWon ? `${pythWon} $PYTH` : "NOT ENTERED", 640, 546);
+
+  const accent = context.createLinearGradient(72, 614, 582, 614);
+  accent.addColorStop(0, "rgba(248,245,255,0.78)");
+  accent.addColorStop(1, "rgba(248,245,255,0.2)");
+  context.strokeStyle = accent;
+  context.lineWidth = 4;
+  context.beginPath();
+  context.moveTo(72, 614);
+  context.lineTo(582, 614);
+  context.stroke();
+
+  context.fillStyle = "#f8f5ff";
+  context.font = "900 22px IBM Plex Mono, monospace";
   context.textAlign = "right";
-  context.fillText("PYTHLIST.COM", 1128, 610);
+  context.fillText("PYTHLIST.COM", 1128, 612);
   context.textAlign = "left";
   context.shadowColor = "transparent";
 }
@@ -531,6 +549,153 @@ function renderShareResult(record) {
   shareResult.querySelector("[data-open-share]")?.addEventListener("click", openSharePanel);
 }
 
+function getVerifiedPythenians() {
+  return Object.values(pytheniansData)
+    .filter((record) => record.verification === "verified" && record.heldSince)
+    .map((record) => ({
+      ...record,
+      daysHeld: calculateDaysHeld(record.heldSince)
+    }));
+}
+
+function getShareMatches(query) {
+  return getVerifiedPythenians()
+    .filter((record) => !query || String(record.number).includes(query))
+    .sort((a, b) => {
+      const aExact = query && String(a.number) === query;
+      const bExact = query && String(b.number) === query;
+      if (aExact !== bExact) return aExact ? -1 : 1;
+      return b.daysHeld - a.daysHeld || a.number - b.number;
+    })
+    .slice(0, 5);
+}
+
+function renderShareSuggestions(query) {
+  if (!shareSuggestions) return;
+
+  const matches = getShareMatches(query);
+  const title = query ? `Matches for ${query}` : "Top 5 by days owned";
+
+  if (!matches.length) {
+    shareSuggestions.innerHTML = `
+      <div class="share-suggestions-head">
+        <span>${title}</span>
+      </div>
+      <p class="share-suggestions-empty">No verified Pythenians found.</p>
+    `;
+    return;
+  }
+
+  shareSuggestions.innerHTML = `
+    <div class="share-suggestions-head">
+      <span>${title}</span>
+      <small>${matches.length} shown</small>
+    </div>
+    <div class="share-suggestions-grid">
+      ${matches.map((record) => {
+        const imageUrl = record.localImage ? `data/${record.localImage}` : record.image;
+        return `
+          <div class="share-suggestion">
+            <span class="share-suggestion-media">
+              <img src="${imageUrl}" alt="">
+            </span>
+            <span class="share-suggestion-body">
+              <span>Pythenians #${record.number}</span>
+              <strong>${record.daysHeld} ${record.daysHeld === 1 ? "day" : "days"} owned</strong>
+              <small>Since ${new Date(record.heldSince).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+              })}</small>
+            </span>
+            <button class="share-button result-share-button" type="button" data-share-number="${record.number}">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"></path><path d="M16 6 12 2 8 6"></path><path d="M12 2v13"></path></svg>
+              Share
+            </button>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+
+  shareSuggestions.querySelectorAll("[data-share-number]").forEach((button) => {
+    button.addEventListener("click", () => {
+      pythenianNumberInput.value = button.dataset.shareNumber;
+      updateShareExperience();
+      const record = pytheniansData[button.dataset.shareNumber];
+      if (record?.verification === "verified" && record.heldSince) {
+        generateShareCard(record, { openAfter: true });
+      }
+    });
+  });
+}
+
+async function generateShareCard(record, options = {}) {
+  const generationId = ++shareGenerationId;
+  shareStatus.textContent = `Building Pythenians #${record.number} card...`;
+
+  try {
+    await drawShareCard(record, pythWonInput.value.trim());
+    if (generationId !== shareGenerationId) return;
+    currentShareRecord = record;
+    shareStatus.textContent = `Pythenians #${record.number} card is ready.`;
+    if (options.openAfter) {
+      openSharePanel();
+    }
+  } catch (error) {
+    if (generationId !== shareGenerationId) return;
+    currentShareRecord = null;
+    shareResult.innerHTML = "";
+    shareStatus.textContent = "Could not load the Pythenians image for this card.";
+    drawEmptyCard();
+  }
+}
+
+function updateShareExperience() {
+  if (!pythenianNumberInput || !shareResult) return;
+
+  const query = pythenianNumberInput.value.replace(/\D/g, "");
+  if (query !== pythenianNumberInput.value) {
+    pythenianNumberInput.value = query;
+  }
+
+  renderShareSuggestions(query);
+
+  const record = pytheniansData[query];
+  if (!query) {
+    shareGenerationId += 1;
+    currentShareRecord = null;
+    shareResult.innerHTML = "";
+    shareStatus.textContent = `${getVerifiedPythenians().length} verified Pythenians loaded. Pick one below or type your number.`;
+    drawEmptyCard();
+    return;
+  }
+
+  if (!record) {
+    shareGenerationId += 1;
+    currentShareRecord = null;
+    shareResult.innerHTML = "";
+    shareStatus.textContent = `Type more digits to narrow the list or pick one below.`;
+    drawEmptyCard();
+    return;
+  }
+
+  if (record.verification !== "verified" || !record.heldSince) {
+    shareGenerationId += 1;
+    currentShareRecord = null;
+    shareResult.innerHTML = "";
+    shareStatus.textContent = `Pythenians #${query} needs transfer-history verification before a card can be generated.`;
+    drawEmptyCard();
+    return;
+  }
+
+  shareGenerationId += 1;
+  currentShareRecord = null;
+  shareResult.innerHTML = "";
+  shareStatus.textContent = `Pythenians #${query} is ready to share.`;
+  drawEmptyCard();
+}
+
 function openSharePanel() {
   if (!currentShareRecord || !shareModal) return;
   shareModal.classList.add("active");
@@ -558,37 +723,7 @@ async function copyCurrentCard() {
 
 async function handleShareFormSubmit(event) {
   event.preventDefault();
-
-  const number = pythenianNumberInput.value.trim();
-  const record = pytheniansData[number];
-
-  currentShareRecord = null;
-
-  if (!record) {
-    shareStatus.textContent = `Pythenian #${number} is not in the loaded dataset yet.`;
-    shareResult.innerHTML = "";
-    drawEmptyCard();
-    return;
-  }
-
-  if (record.verification !== "verified" || !record.heldSince) {
-    shareStatus.textContent = `Pythenian #${number} needs transfer-history verification before a card can be generated.`;
-    shareResult.innerHTML = "";
-    drawEmptyCard();
-    return;
-  }
-
-  shareStatus.textContent = `Generating Pythenian #${number}...`;
-
-  try {
-    await drawShareCard(record, pythWonInput.value.trim());
-    currentShareRecord = record;
-    renderShareResult(record);
-    shareStatus.textContent = `Pythenian #${number} card is ready.`;
-  } catch (error) {
-    shareStatus.textContent = "Could not load the Pythenian image for this card.";
-    drawEmptyCard();
-  }
+  updateShareExperience();
 }
 
 function downloadCurrentCard() {
@@ -661,6 +796,12 @@ renderProjects();
 renderNews();
 loadPytheniansData();
 shareForm?.addEventListener("submit", handleShareFormSubmit);
+pythenianNumberInput?.addEventListener("input", updateShareExperience);
+pythWonInput?.addEventListener("input", () => {
+  if (currentShareRecord && shareModal?.classList.contains("active")) {
+    generateShareCard(currentShareRecord);
+  }
+});
 downloadCardButton?.addEventListener("click", downloadCurrentCard);
 copyCardButton?.addEventListener("click", copyCurrentCard);
 document.querySelectorAll("[data-share-close]").forEach((button) => {
