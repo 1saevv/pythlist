@@ -11,7 +11,7 @@ on:
       numbers:
         description: "Comma-separated Pythenian numbers for a PoC run"
         required: true
-        default: "22,1270,2120,564,3574"
+        default: "3574,786,2446,3360,1270"
   schedule:
     - cron: "17 3 * * *"
 
@@ -55,8 +55,9 @@ jobs:
       - name: Build Pythenians dataset
         env:
           SOLANA_RPC_URL: ${{ secrets.SOLANA_RPC_URL }}
-          RPC_THROTTLE_MS: "500"
+          RPC_THROTTLE_MS: "250"
           HISTORY_PAGE_LIMIT: "20"
+          TRANSACTION_BATCH_SIZE: "100"
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.full_collection }}" != "true" ]; then
             node scripts/build-pythenians-dataset.mjs --numbers="${{ inputs.numbers }}" --out=data/pythenians.poc.json

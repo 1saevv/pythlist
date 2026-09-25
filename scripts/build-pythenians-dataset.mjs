@@ -18,6 +18,7 @@ const outFile = args.out || "data/pythenians.json";
 const stateFile = args.state || ".cache/pythenians-state.json";
 const throttleMs = Number(args.throttleMs || process.env.RPC_THROTTLE_MS || 250);
 const historyPageLimit = Number(args.historyPageLimit || process.env.HISTORY_PAGE_LIMIT || 12);
+const transactionBatchSize = Number(args.transactionBatchSize || process.env.TRANSACTION_BATCH_SIZE || 100);
 const requestedNumbers = parseNumbers(args.numbers, args.limit);
 
 const connection = new Connection(rpcUrl, "confirmed");
@@ -333,25 +334,35 @@ async function findHeldSince({ mint, tokenAccount, owner, pageLimit }) {
       break;
     }
 
-    for (const signatureInfo of signatures) {
-      if (signatureInfo.err) continue;
+    const successfulSignatures = signatures.filter((signatureInfo) => !signatureInfo.err);
+
+    for (let index = 0; index < successfulSignatures.length; index += transactionBatchSize) {
+      const batch = successfulSignatures.slice(index, index + transactionBatchSize);
 
       await sleep(throttleMs);
-      const transaction = await withRetry(() =>
-        connection.getParsedTransaction(signatureInfo.signature, {
-          commitment: "confirmed",
-          maxSupportedTransactionVersion: 0
-        })
+      const transactions = await withRetry(() =>
+        connection.getParsedTransactions(
+          batch.map((signatureInfo) => signatureInfo.signature),
+          {
+            commitment: "confirmed",
+            maxSupportedTransactionVersion: 0
+          }
+        )
       );
 
-      if (!transaction?.meta) continue;
+      for (let batchIndex = 0; batchIndex < transactions.length; batchIndex += 1) {
+        const transaction = transactions[batchIndex];
+        const signatureInfo = batch[batchIndex];
 
-      if (isAcquisitionTransaction(transaction, { mint, tokenAccount, owner })) {
-        const blockTime = transaction.blockTime || signatureInfo.blockTime;
-        if (!blockTime) {
-          throw new Error(`Acquisition transaction has no blockTime: ${signatureInfo.signature}`);
+        if (!transaction?.meta) continue;
+
+        if (isAcquisitionTransaction(transaction, { mint, tokenAccount, owner })) {
+          const blockTime = transaction.blockTime || signatureInfo.blockTime;
+          if (!blockTime) {
+            throw new Error(`Acquisition transaction has no blockTime: ${signatureInfo.signature}`);
+          }
+          return new Date(blockTime * 1000).toISOString();
         }
-        return new Date(blockTime * 1000).toISOString();
       }
     }
 
