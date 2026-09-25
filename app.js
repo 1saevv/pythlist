@@ -150,8 +150,16 @@ const views = [...document.querySelectorAll("[data-view]")];
 const menuButton = document.querySelector(".mobile-menu-button");
 const menuBackdrop = document.querySelector(".sidebar-backdrop");
 const sidebar = document.querySelector("#sidebar");
+const shareForm = document.querySelector("#shareForm");
+const pythenianNumberInput = document.querySelector("#pythenianNumber");
+const pythWonInput = document.querySelector("#pythWon");
+const shareStatus = document.querySelector("#shareStatus");
+const shareCanvas = document.querySelector("#shareCanvas");
+const downloadCardButton = document.querySelector("#downloadCard");
 
 let currentFilter = "all";
+let pytheniansData = {};
+let currentCardBlobUrl = "";
 
 const statusLabels = {
   prime: "Prime Time",
@@ -263,7 +271,8 @@ function loadTwitterEmbeds() {
 }
 
 function setActiveView(viewName) {
-  const nextView = viewName === "news" ? "news" : "projects";
+  const knownViews = views.map((view) => view.dataset.view);
+  const nextView = knownViews.includes(viewName) ? viewName : "projects";
 
   views.forEach((view) => {
     view.classList.toggle("active", view.dataset.view === nextView);
@@ -273,11 +282,187 @@ function setActiveView(viewName) {
     link.classList.toggle("active", link.dataset.viewLink === nextView);
   });
 
-  if (nextView === "news") {
-    window.history.replaceState(null, "", "#news");
-  } else {
+  if (nextView === "projects") {
     window.history.replaceState(null, "", window.location.pathname);
+  } else {
+    window.history.replaceState(null, "", `#${nextView}`);
   }
+}
+
+async function loadPytheniansData() {
+  if (!shareStatus) return;
+
+  try {
+    const response = await fetch("data/pythenians.json", { cache: "no-store" });
+    const datasetResponse = response.ok
+      ? response
+      : await fetch("data/pythenians.poc.json", { cache: "no-store" });
+
+    if (!datasetResponse.ok) {
+      throw new Error("Dataset is not available yet.");
+    }
+
+    pytheniansData = await datasetResponse.json();
+    const verifiedCount = Object.values(pytheniansData).filter((item) => item.verification === "verified").length;
+    shareStatus.textContent = `${verifiedCount} verified Pythenians loaded.`;
+    drawEmptyCard();
+  } catch (error) {
+    shareStatus.textContent = "Dataset is not available yet.";
+    drawEmptyCard();
+  }
+}
+
+function calculateDaysHeld(heldSince) {
+  return Math.max(0, Math.floor((Date.now() - new Date(heldSince).getTime()) / 86400000));
+}
+
+function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = url;
+  });
+}
+
+function drawRoundedRect(context, x, y, width, height, radius) {
+  context.beginPath();
+  context.moveTo(x + radius, y);
+  context.lineTo(x + width - radius, y);
+  context.quadraticCurveTo(x + width, y, x + width, y + radius);
+  context.lineTo(x + width, y + height - radius);
+  context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  context.lineTo(x + radius, y + height);
+  context.quadraticCurveTo(x, y + height, x, y + height - radius);
+  context.lineTo(x, y + radius);
+  context.quadraticCurveTo(x, y, x + radius, y);
+  context.closePath();
+}
+
+function drawEmptyCard() {
+  if (!shareCanvas) return;
+
+  const context = shareCanvas.getContext("2d");
+  const gradient = context.createLinearGradient(0, 0, 1200, 675);
+  gradient.addColorStop(0, "#211932");
+  gradient.addColorStop(0.55, "#3a284e");
+  gradient.addColorStop(1, "#1f2f3d");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, 1200, 675);
+  context.fillStyle = "rgba(255,255,255,0.88)";
+  context.font = "700 48px Archivo, sans-serif";
+  context.fillText("PYTHLIST.COM", 72, 110);
+  context.fillStyle = "rgba(255,255,255,0.62)";
+  context.font = "500 28px Archivo, sans-serif";
+  context.fillText("Enter a verified Pythenian number to generate a card.", 72, 170);
+}
+
+async function drawShareCard(record, pythWon) {
+  const context = shareCanvas.getContext("2d");
+  const imageUrl = record.localImage ? `data/${record.localImage}` : record.image;
+  const image = await loadImage(imageUrl);
+  const daysHeld = calculateDaysHeld(record.heldSince);
+
+  const gradient = context.createLinearGradient(0, 0, 1200, 675);
+  gradient.addColorStop(0, "#241b35");
+  gradient.addColorStop(0.55, "#513169");
+  gradient.addColorStop(1, "#172f3a");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, 1200, 675);
+
+  drawRoundedRect(context, 60, 60, 555, 555, 26);
+  context.save();
+  context.clip();
+  context.drawImage(image, 60, 60, 555, 555);
+  context.restore();
+
+  context.strokeStyle = "rgba(255,255,255,0.22)";
+  context.lineWidth = 3;
+  drawRoundedRect(context, 60, 60, 555, 555, 26);
+  context.stroke();
+
+  context.fillStyle = "#f8f5ff";
+  context.font = "800 72px Archivo, sans-serif";
+  context.fillText(`Pythenian #${record.number}`, 680, 150);
+
+  context.fillStyle = "rgba(248,245,255,0.72)";
+  context.font = "600 28px Archivo, sans-serif";
+  context.fillText("Current holding streak", 680, 225);
+
+  context.fillStyle = "#53eafd";
+  context.font = "800 88px Archivo, sans-serif";
+  context.fillText(`${daysHeld}`, 680, 330);
+
+  context.fillStyle = "#f8f5ff";
+  context.font = "700 34px Archivo, sans-serif";
+  context.fillText(daysHeld === 1 ? "day held" : "days held", 840, 326);
+
+  context.fillStyle = "rgba(248,245,255,0.7)";
+  context.font = "500 24px Archivo, sans-serif";
+  context.fillText(`Since ${new Date(record.heldSince).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+  })}`, 680, 380);
+
+  if (pythWon) {
+    context.fillStyle = "#5ee9b5";
+    context.font = "800 42px Archivo, sans-serif";
+    context.fillText(`${pythWon} PYTH won`, 680, 460);
+  }
+
+  context.fillStyle = "rgba(248,245,255,0.92)";
+  context.font = "800 36px Archivo, sans-serif";
+  context.fillText("PYTHLIST.COM", 680, 580);
+
+  downloadCardButton.disabled = false;
+}
+
+async function handleShareFormSubmit(event) {
+  event.preventDefault();
+
+  const number = pythenianNumberInput.value.trim();
+  const record = pytheniansData[number];
+
+  downloadCardButton.disabled = true;
+
+  if (!record) {
+    shareStatus.textContent = `Pythenian #${number} is not in the loaded dataset yet.`;
+    drawEmptyCard();
+    return;
+  }
+
+  if (record.verification !== "verified" || !record.heldSince) {
+    shareStatus.textContent = `Pythenian #${number} needs transfer-history verification before a card can be generated.`;
+    drawEmptyCard();
+    return;
+  }
+
+  shareStatus.textContent = `Generating Pythenian #${number}...`;
+
+  try {
+    await drawShareCard(record, pythWonInput.value.trim());
+    shareStatus.textContent = `Pythenian #${number} card is ready.`;
+  } catch (error) {
+    shareStatus.textContent = "Could not load the Pythenian image for this card.";
+    drawEmptyCard();
+  }
+}
+
+function downloadCurrentCard() {
+  if (!shareCanvas || downloadCardButton.disabled) return;
+
+  shareCanvas.toBlob((blob) => {
+    if (!blob) return;
+    if (currentCardBlobUrl) URL.revokeObjectURL(currentCardBlobUrl);
+    currentCardBlobUrl = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = currentCardBlobUrl;
+    link.download = `pythenian-${pythenianNumberInput.value.trim()}-share-card.png`;
+    link.click();
+  }, "image/png");
 }
 
 filterButtons.forEach((button) => {
@@ -325,9 +510,13 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-if (window.location.hash === "#news") {
-  setActiveView("news");
+const initialView = window.location.hash.replace("#", "");
+if (initialView) {
+  setActiveView(initialView);
 }
 
 renderProjects();
 renderNews();
+loadPytheniansData();
+shareForm?.addEventListener("submit", handleShareFormSubmit);
+downloadCardButton?.addEventListener("click", downloadCurrentCard);

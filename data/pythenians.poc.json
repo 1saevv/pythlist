@@ -7,7 +7,8 @@
     "daysHeldAtBuild": 1,
     "heldSinceSource": "marketplace_sale",
     "verification": "verified",
-    "updatedAt": "2026-09-25T12:34:49.760Z"
+    "updatedAt": "2026-09-25T12:34:49.760Z",
+    "localImage": "pythenians-images/786.png"
   },
   "1270": {
     "number": 1270,
@@ -17,7 +18,8 @@
     "daysHeldAtBuild": 0,
     "heldSinceSource": "marketplace_sale",
     "verification": "verified",
-    "updatedAt": "2026-09-25T12:34:49.760Z"
+    "updatedAt": "2026-09-25T12:34:49.760Z",
+    "localImage": "pythenians-images/1270.png"
   },
   "2446": {
     "number": 2446,
@@ -27,7 +29,8 @@
     "daysHeldAtBuild": null,
     "heldSinceSource": "unresolved",
     "verification": "needs_transfer_history",
-    "updatedAt": "2026-09-25T12:34:49.760Z"
+    "updatedAt": "2026-09-25T12:34:49.760Z",
+    "localImage": "pythenians-images/2446.png"
   },
   "3360": {
     "number": 3360,
@@ -37,7 +40,8 @@
     "daysHeldAtBuild": 1,
     "heldSinceSource": "marketplace_sale",
     "verification": "verified",
-    "updatedAt": "2026-09-25T12:34:49.760Z"
+    "updatedAt": "2026-09-25T12:34:49.760Z",
+    "localImage": "pythenians-images/3360.png"
   },
   "3574": {
     "number": 3574,
@@ -47,6 +51,7 @@
     "daysHeldAtBuild": 1,
     "heldSinceSource": "marketplace_sale",
     "verification": "verified",
-    "updatedAt": "2026-09-25T12:34:49.760Z"
+    "updatedAt": "2026-09-25T12:34:49.760Z",
+    "localImage": "pythenians-images/3574.png"
   }
 }

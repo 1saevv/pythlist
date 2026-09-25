@@ -36,6 +36,12 @@
             </span>
             News
           </a>
+          <a class="nav-link" href="#share-card" data-view-link="share-card">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="m4 15 4-4 4 4 3-3 5 5"></path><circle cx="15" cy="9" r="1"></circle></svg>
+            </span>
+            Share Card
+          </a>
         </nav>
 
         <section class="buy-block" aria-label="Buy Pythenians NFT">
@@ -157,6 +163,35 @@
               <span id="newsCount" class="pill">0 posts</span>
             </div>
             <div id="newsGrid" class="news-grid" aria-live="polite"></div>
+          </section>
+        </div>
+
+        <div class="view" data-view="share-card">
+          <section class="share-hero">
+            <p class="kicker">Share Card</p>
+            <h2>Pythenian Share Card Generator</h2>
+            <p class="hero-copy">Create a PNG card from the generated PythList dataset.</p>
+          </section>
+
+          <section class="share-panel">
+            <form id="shareForm" class="share-form">
+              <label>
+                <span>Pythenian number</span>
+                <input id="pythenianNumber" type="number" min="1" step="1" inputmode="numeric" placeholder="3574" required>
+              </label>
+              <label>
+                <span>PYTH won</span>
+                <input id="pythWon" type="text" inputmode="decimal" placeholder="Optional">
+              </label>
+              <button class="primary-button" type="submit">Generate Share Card</button>
+              <button id="downloadCard" class="secondary-button" type="button" disabled>Download PNG</button>
+            </form>
+
+            <div class="share-status" id="shareStatus" role="status">Loading Pythenian dataset...</div>
+
+            <div class="card-preview">
+              <canvas id="shareCanvas" width="1200" height="675" aria-label="Generated Pythenian share card"></canvas>
+            </div>
           </section>
         </div>
       </main>

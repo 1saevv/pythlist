@@ -324,7 +324,9 @@ h1 {
 .hero,
 .toolbar,
 .project-panel,
-.news-hero {
+.news-hero,
+.share-hero,
+.share-panel {
   margin: 24px;
 }
 
@@ -351,14 +353,16 @@ h1 {
   padding: 16px 18px;
 }
 
-.news-hero {
+.news-hero,
+.share-hero {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   background: linear-gradient(135deg, rgba(49, 41, 64, 0.88), rgba(36, 27, 53, 0.9));
   padding: 18px;
 }
 
-.news-hero h2 {
+.news-hero h2,
+.share-hero h2 {
   margin-bottom: 6px;
   font-size: clamp(21px, 2.7vw, 30px);
   line-height: 1.08;
@@ -520,6 +524,88 @@ code {
 
 .news-panel {
   margin: 24px;
+}
+
+.share-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.share-form {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) minmax(140px, 1fr) auto auto;
+  gap: 12px;
+  align-items: end;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(49, 41, 64, 0.76);
+  padding: 16px;
+}
+
+.share-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.share-form input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  outline: 0;
+  background: rgba(20, 15, 30, 0.26);
+  color: var(--text);
+  padding: 0 12px;
+}
+
+.primary-button,
+.secondary-button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 800;
+  padding: 0 16px;
+}
+
+.primary-button {
+  background: #f8f5ff;
+  color: #261e35;
+}
+
+.secondary-button {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(20, 15, 30, 0.24);
+  color: var(--text);
+}
+
+.secondary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.share-status {
+  color: var(--soft);
+  font-size: 14px;
+}
+
+.card-preview {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(20, 15, 30, 0.22);
+  padding: 12px;
+}
+
+.card-preview canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
 }
 
 .news-item {
@@ -866,7 +952,9 @@ code {
   .toolbar,
   .project-panel,
   .news-panel,
-  .news-hero {
+  .news-hero,
+  .share-hero,
+  .share-panel {
     margin: 16px;
   }
 
@@ -911,6 +999,10 @@ code {
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     padding-top: 16px;
     padding-left: 0;
+  }
+
+  .share-form {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -15,6 +15,7 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const args = parseArgs(process.argv.slice(2));
 const rpcUrl = process.env.SOLANA_RPC_URL || DEFAULT_RPC_URL;
 const outFile = args.out || "data/pythenians.json";
+const outDir = path.dirname(outFile);
 const stateFile = args.state || ".cache/pythenians-state.json";
 const throttleMs = Number(args.throttleMs || process.env.RPC_THROTTLE_MS || 250);
 const historyPageLimit = Number(args.historyPageLimit || process.env.HISTORY_PAGE_LIMIT || 12);
@@ -32,7 +33,7 @@ main().catch((error) => {
 async function main() {
   console.log(`Using RPC: ${redactRpcUrl(rpcUrl)}`);
 
-  await fs.mkdir(path.dirname(outFile), { recursive: true });
+  await fs.mkdir(outDir, { recursive: true });
   await fs.mkdir(path.dirname(stateFile), { recursive: true });
 
   const previousPublic = await readJsonIfExists(outFile, {});
@@ -56,6 +57,7 @@ async function main() {
 
     const officialMetadata = await fetchOfficialMetadata(number);
     assertOfficialMetadata(number, officialMetadata);
+    const localImage = await mirrorImage(number, officialMetadata.image);
 
     const mint = mintMap[key]?.mint || previousPublic[key]?.mint;
     if (!mint) {
@@ -108,6 +110,7 @@ async function main() {
           number,
           mint,
           image: officialMetadata.image,
+          localImage,
           heldSince: null,
           daysHeldAtBuild: null,
           heldSinceSource,
@@ -131,6 +134,7 @@ async function main() {
       number,
       mint,
       image: officialMetadata.image,
+      localImage,
       heldSince,
       daysHeldAtBuild: daysBetween(new Date(heldSince), asOf),
       heldSinceSource,
@@ -321,6 +325,29 @@ async function fetchOfficialMetadata(number) {
   }
 
   return response.json();
+}
+
+async function mirrorImage(number, imageUrl) {
+  const extension = path.extname(new URL(imageUrl).pathname) || ".png";
+  const relativePath = `pythenians-images/${number}${extension}`;
+  const outputPath = path.join(outDir, relativePath);
+
+  try {
+    await fs.access(outputPath);
+    return relativePath;
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
+
+  const response = await withRetry(() => fetch(imageUrl));
+  if (!response.ok) {
+    throw new Error(`Image ${imageUrl} returned ${response.status}`);
+  }
+
+  await fs.mkdir(path.dirname(outputPath), { recursive: true });
+  await fs.writeFile(outputPath, Buffer.from(await response.arrayBuffer()));
+
+  return relativePath;
 }
 
 function assertOfficialMetadata(number, metadata) {
