@@ -567,18 +567,18 @@ code {
 .primary-button,
 .secondary-button,
 .share-button {
-  min-height: 44px;
-  border: 0;
-  border-radius: 0;
+  min-height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 800;
-  padding: 0 16px;
+  padding: 0 14px;
   text-transform: uppercase;
 }
 
 .primary-button {
-  background: #f8f5ff;
-  color: #261e35;
+  background: rgba(248, 245, 255, 0.92);
+  color: var(--panel);
 }
 
 .secondary-button {
@@ -594,14 +594,14 @@ code {
 
 .share-button {
   display: inline-flex;
-  min-width: 150px;
+  min-width: 128px;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 1px solid rgba(83, 234, 253, 0.52);
-  background: linear-gradient(135deg, rgba(83, 234, 253, 0.96), rgba(242, 169, 255, 0.88));
-  color: #261e35;
-  box-shadow: 0 0 0 1px rgba(83, 234, 253, 0.18), 0 18px 42px rgba(83, 234, 253, 0.18);
+  border: 1px solid rgba(83, 234, 253, 0.34);
+  background: rgba(83, 234, 253, 0.12);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px rgba(242, 169, 255, 0.08);
 }
 
 .share-button svg {
@@ -642,7 +642,7 @@ code {
   background:
     linear-gradient(135deg, rgba(49, 41, 64, 0.9), rgba(58, 45, 72, 0.78)),
     rgba(49, 41, 64, 0.9);
-  padding: 14px;
+  padding: 12px;
 }
 
 .share-result-media {
@@ -681,8 +681,8 @@ code {
 }
 
 .result-share-button {
-  min-width: 154px;
-  min-height: 54px;
+  min-width: 132px;
+  min-height: 46px;
   flex: 0 0 auto;
 }
 
@@ -693,7 +693,7 @@ code {
   background:
     linear-gradient(135deg, rgba(58, 45, 72, 0.95), rgba(35, 74, 88, 0.58)),
     var(--panel);
-  padding: 14px;
+  padding: 10px;
 }
 
 .card-preview canvas {
@@ -722,8 +722,10 @@ code {
 .share-modal-panel {
   position: relative;
   z-index: 1;
-  width: min(100% - 32px, 980px);
-  margin: 8vh auto 0;
+  width: min(100% - 32px, 820px);
+  max-height: calc(100vh - 44px);
+  margin: 22px auto 0;
+  overflow: auto;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background:
     linear-gradient(135deg, rgba(49, 41, 64, 0.98), rgba(58, 45, 72, 0.96)),
@@ -736,22 +738,22 @@ code {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid rgba(83, 234, 253, 0.18);
-  padding: 16px 18px;
+  padding: 12px 14px;
 }
 
 .share-modal-head h3 {
   margin: 0;
   font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 18px;
+  font-size: 15px;
   letter-spacing: 0;
   text-transform: uppercase;
-  color: var(--cyan);
+  color: var(--text);
 }
 
 .icon-button {
   display: grid;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: transparent;
@@ -776,7 +778,7 @@ code {
 }
 
 .share-modal-actions button {
-  min-height: 60px;
+  min-height: 52px;
 }
 
 .news-item {

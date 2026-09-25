@@ -407,9 +407,6 @@ async function drawShareCard(record, pythWon) {
   context.fillStyle = "#53eafd";
   context.font = "900 34px Archivo, sans-serif";
   context.fillText("PYTHLIST", 72, 92);
-  context.fillStyle = "rgba(248,245,255,0.78)";
-  context.font = "800 20px IBM Plex Mono, monospace";
-  context.fillText("PYTHLIST.COM", 950, 92);
 
   context.save();
   context.beginPath();
@@ -467,6 +464,12 @@ async function drawShareCard(record, pythWon) {
   context.fillStyle = "rgba(248,245,255,0.42)";
   context.font = "800 16px IBM Plex Mono, monospace";
   context.fillText("verified marketplace sale", 590, 598);
+
+  context.fillStyle = "rgba(248,245,255,0.78)";
+  context.font = "800 22px IBM Plex Mono, monospace";
+  context.textAlign = "right";
+  context.fillText("PYTHLIST.COM", 1128, 610);
+  context.textAlign = "left";
 }
 
 function renderShareResult(record) {
