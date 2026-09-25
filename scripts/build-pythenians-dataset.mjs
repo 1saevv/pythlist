@@ -58,57 +58,63 @@ async function main() {
     const key = String(number);
     console.log(`\n#${number}`);
 
-    const officialMetadata = await fetchOfficialMetadata(number);
-    assertOfficialMetadata(number, officialMetadata);
-    const localImage = await mirrorImage(number, officialMetadata.image);
-
-    const mint = mintMap[key]?.mint || previousPublic[key]?.mint;
-    if (!mint) {
-      throw new Error(`Missing mint for Pythenians #${number}`);
-    }
-
-    await sleep(throttleMs);
-    const currentTokenAccount = await getCurrentTokenAccount(mint);
-    await sleep(throttleMs);
-    const currentOwner = await getTokenAccountOwner(currentTokenAccount);
-
     const previousRecord = previousPublic[key];
     const previousPrivate = previousState[key];
-    let heldSince = null;
-    let heldSinceSource = "marketplace_sale";
-    let verification = "verified";
+    let officialMetadata = null;
+    let localImage = null;
+    let mint = mintMap[key]?.mint || previousRecord?.mint || null;
 
-    if (
-      previousRecord?.heldSince &&
-      previousPrivate?.owner === currentOwner &&
-      previousPrivate?.tokenAccount === currentTokenAccount
-    ) {
-      heldSince = previousRecord.heldSince;
-      console.log(`  heldSince unchanged: ${heldSince}`);
-    } else {
-      const sale = await findLatestMarketplaceSale(mint);
+    try {
+      officialMetadata = await fetchOfficialMetadata(number);
+      assertOfficialMetadata(number, officialMetadata);
+      localImage = await mirrorImage(number, officialMetadata.image);
 
-      if (sale?.buyer === currentOwner) {
-        heldSince = new Date(sale.blockTime * 1000).toISOString();
-        console.log(`  heldSince from latest verified sale: ${heldSince}`);
-      } else if (transferFallback) {
-        heldSinceSource = "token_transfer_history";
-        heldSince = await findHeldSince({
-          mint,
-          tokenAccount: currentTokenAccount,
-          owner: currentOwner,
-          pageLimit: historyPageLimit
-        });
-        console.log(`  heldSince from transfer history: ${heldSince || "not found"}`);
-      } else {
-        verification = "needs_transfer_history";
-        heldSinceSource = "unresolved";
-        console.log("  latest sale buyer does not match current owner; transfer fallback disabled");
+      if (!mint) {
+        throw new Error(`Missing mint for Pythenians #${number}`);
       }
-    }
 
-    if (!heldSince) {
-      if (verification === "needs_transfer_history") {
+      await sleep(throttleMs);
+      const currentTokenAccount = await getCurrentTokenAccount(mint);
+      await sleep(throttleMs);
+      const currentOwner = await getTokenAccountOwner(currentTokenAccount);
+
+      let heldSince = null;
+      let heldSinceSource = "marketplace_sale";
+      let verification = "verified";
+
+      if (
+        previousRecord?.heldSince &&
+        previousPrivate?.owner === currentOwner &&
+        previousPrivate?.tokenAccount === currentTokenAccount
+      ) {
+        heldSince = previousRecord.heldSince;
+        console.log(`  heldSince unchanged: ${heldSince}`);
+      } else {
+        const sale = await findLatestMarketplaceSale(mint);
+
+        if (sale?.buyer === currentOwner) {
+          heldSince = new Date(sale.blockTime * 1000).toISOString();
+          console.log(`  heldSince from latest verified sale: ${heldSince}`);
+        } else if (transferFallback) {
+          heldSinceSource = "token_transfer_history";
+          heldSince = await findHeldSince({
+            mint,
+            tokenAccount: currentTokenAccount,
+            owner: currentOwner,
+            pageLimit: historyPageLimit
+          });
+          console.log(`  heldSince from transfer history: ${heldSince || "not found"}`);
+        } else {
+          verification = "needs_transfer_history";
+          heldSinceSource = "unresolved";
+          console.log("  latest sale buyer does not match current owner; transfer fallback disabled");
+        }
+      }
+
+      if (!heldSince) {
+        verification = "unresolved";
+        heldSinceSource = "unresolved";
+
         records[key] = {
           number,
           mint,
@@ -130,31 +136,64 @@ async function main() {
         continue;
       }
 
-      throw new Error(`Could not determine heldSince for Pythenians #${number} (${mint})`);
+      records[key] = {
+        number,
+        mint,
+        image: officialMetadata.image,
+        localImage,
+        heldSince,
+        daysHeldAtBuild: daysBetween(new Date(heldSince), asOf),
+        heldSinceSource,
+        verification,
+        updatedAt: asOf.toISOString()
+      };
+
+      state[key] = {
+        owner: currentOwner,
+        tokenAccount: currentTokenAccount,
+        checkedAt: asOf.toISOString()
+      };
+    } catch (error) {
+      console.warn(`  unresolved: ${String(error?.message || error).slice(0, 220)}`);
+
+      if (previousRecord?.heldSince) {
+        records[key] = {
+          ...previousRecord,
+          updatedAt: asOf.toISOString(),
+          carriedForward: true
+        };
+        if (previousPrivate) {
+          state[key] = {
+            ...previousPrivate,
+            checkedAt: asOf.toISOString()
+          };
+        }
+        console.warn("  carried forward previous verified record");
+        continue;
+      }
+
+      records[key] = {
+        number,
+        mint,
+        image: officialMetadata?.image || previousRecord?.image || null,
+        localImage: localImage || previousRecord?.localImage || null,
+        heldSince: null,
+        daysHeldAtBuild: null,
+        heldSinceSource: "unresolved",
+        verification: "unresolved",
+        error: String(error?.message || error).slice(0, 220),
+        updatedAt: asOf.toISOString()
+      };
     }
-
-    records[key] = {
-      number,
-      mint,
-      image: officialMetadata.image,
-      localImage,
-      heldSince,
-      daysHeldAtBuild: daysBetween(new Date(heldSince), asOf),
-      heldSinceSource,
-      verification,
-      updatedAt: asOf.toISOString()
-    };
-
-    state[key] = {
-      owner: currentOwner,
-      tokenAccount: currentTokenAccount,
-      checkedAt: asOf.toISOString()
-    };
   }
 
   await writeJson(outFile, sortObjectByNumericKeys(records));
   await writeJson(stateFile, sortObjectByNumericKeys(state));
+  const values = Object.values(records);
+  const verifiedCount = values.filter((record) => record.verification === "verified").length;
+  const unresolvedCount = values.length - verifiedCount;
   console.log(`\nWrote ${Object.keys(records).length} public records to ${outFile}`);
+  console.log(`Verified: ${verifiedCount}; unresolved: ${unresolvedCount}`);
   console.log(`Wrote private action cache to ${stateFile}`);
 }
 
