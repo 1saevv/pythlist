@@ -58,6 +58,7 @@ jobs:
           RPC_THROTTLE_MS: "250"
           HISTORY_PAGE_LIMIT: "20"
           TRANSACTION_BATCH_SIZE: "100"
+          TRANSFER_FALLBACK: "false"
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.full_collection }}" != "true" ]; then
             node scripts/build-pythenians-dataset.mjs --numbers="${{ inputs.numbers }}" --out=data/pythenians.poc.json

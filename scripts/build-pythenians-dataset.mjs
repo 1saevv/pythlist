@@ -19,6 +19,7 @@ const stateFile = args.state || ".cache/pythenians-state.json";
 const throttleMs = Number(args.throttleMs || process.env.RPC_THROTTLE_MS || 250);
 const historyPageLimit = Number(args.historyPageLimit || process.env.HISTORY_PAGE_LIMIT || 12);
 const transactionBatchSize = Number(args.transactionBatchSize || process.env.TRANSACTION_BATCH_SIZE || 100);
+const transferFallback = args.transferFallback === true || process.env.TRANSFER_FALLBACK === "true";
 const requestedNumbers = parseNumbers(args.numbers, args.limit);
 
 const connection = new Connection(rpcUrl, "confirmed");
@@ -69,6 +70,8 @@ async function main() {
     const previousRecord = previousPublic[key];
     const previousPrivate = previousState[key];
     let heldSince = null;
+    let heldSinceSource = "marketplace_sale";
+    let verification = "verified";
 
     if (
       previousRecord?.heldSince &&
@@ -78,16 +81,49 @@ async function main() {
       heldSince = previousRecord.heldSince;
       console.log(`  heldSince unchanged: ${heldSince}`);
     } else {
-      heldSince = await findHeldSince({
-        mint,
-        tokenAccount: currentTokenAccount,
-        owner: currentOwner,
-        pageLimit: historyPageLimit
-      });
-      console.log(`  heldSince recalculated: ${heldSince || "not found"}`);
+      const sale = await findLatestMarketplaceSale(mint);
+
+      if (sale?.buyer === currentOwner) {
+        heldSince = new Date(sale.blockTime * 1000).toISOString();
+        console.log(`  heldSince from latest verified sale: ${heldSince}`);
+      } else if (transferFallback) {
+        heldSinceSource = "token_transfer_history";
+        heldSince = await findHeldSince({
+          mint,
+          tokenAccount: currentTokenAccount,
+          owner: currentOwner,
+          pageLimit: historyPageLimit
+        });
+        console.log(`  heldSince from transfer history: ${heldSince || "not found"}`);
+      } else {
+        verification = "needs_transfer_history";
+        heldSinceSource = "unresolved";
+        console.log("  latest sale buyer does not match current owner; transfer fallback disabled");
+      }
     }
 
     if (!heldSince) {
+      if (verification === "needs_transfer_history") {
+        records[key] = {
+          number,
+          mint,
+          image: officialMetadata.image,
+          heldSince: null,
+          daysHeldAtBuild: null,
+          heldSinceSource,
+          verification,
+          updatedAt: asOf.toISOString()
+        };
+
+        state[key] = {
+          owner: currentOwner,
+          tokenAccount: currentTokenAccount,
+          checkedAt: asOf.toISOString()
+        };
+
+        continue;
+      }
+
       throw new Error(`Could not determine heldSince for Pythenians #${number} (${mint})`);
     }
 
@@ -97,6 +133,8 @@ async function main() {
       image: officialMetadata.image,
       heldSince,
       daysHeldAtBuild: daysBetween(new Date(heldSince), asOf),
+      heldSinceSource,
+      verification,
       updatedAt: asOf.toISOString()
     };
 
@@ -316,6 +354,51 @@ async function getTokenAccountOwner(tokenAccount) {
   }
 
   return owner;
+}
+
+async function findLatestMarketplaceSale(mint) {
+  for (let offset = 0; offset <= 500; offset += 100) {
+    const url = `https://api-mainnet.magiceden.dev/v2/tokens/${mint}/activities?offset=${offset}&limit=100`;
+    const response = await withRetry(() => fetch(url));
+    const text = await response.text();
+
+    if (!response.ok) {
+      throw new Error(`Magic Eden activities returned ${response.status}: ${text.slice(0, 160)}`);
+    }
+
+    if (text.startsWith("You have exceeded")) {
+      throw new Error(`Magic Eden rate limit: ${text.slice(0, 160)}`);
+    }
+
+    const activities = JSON.parse(text);
+    const sale = activities.find((activity) => {
+      return (
+        activity.tokenMint === mint &&
+        activity.buyer &&
+        activity.blockTime &&
+        !["list", "delist", "bid", "poolUpdate"].includes(activity.type)
+      );
+    });
+
+    if (sale) {
+      return {
+        type: sale.type,
+        source: sale.source,
+        signature: sale.signature,
+        buyer: sale.buyer,
+        seller: sale.seller,
+        blockTime: sale.blockTime
+      };
+    }
+
+    if (activities.length < 100) {
+      break;
+    }
+
+    await sleep(1000);
+  }
+
+  return null;
 }
 
 async function findHeldSince({ mint, tokenAccount, owner, pageLimit }) {
