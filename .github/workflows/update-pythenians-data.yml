@@ -1,0 +1,56 @@
+name: Update Pythenians data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Restore private build cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: pythenians-state-${{ github.run_id }}
+          restore-keys: |
+            pythenians-state-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check RPC secret
+        env:
+          SOLANA_RPC_URL: ${{ secrets.SOLANA_RPC_URL }}
+        run: |
+          if [ -z "$SOLANA_RPC_URL" ]; then
+            echo "SOLANA_RPC_URL GitHub Secret is required."
+            exit 1
+          fi
+
+      - name: Build Pythenians dataset
+        env:
+          SOLANA_RPC_URL: ${{ secrets.SOLANA_RPC_URL }}
+          RPC_THROTTLE_MS: "500"
+          HISTORY_PAGE_LIMIT: "20"
+        run: npm run pythenians:build
+
+      - name: Commit dataset
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update Pythenians dataset"
+          file_pattern: data/pythenians.json package-lock.json

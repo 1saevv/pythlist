@@ -1,0 +1,14 @@
+{
+  "name": "pythlist",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "pythenians:poc": "node scripts/build-pythenians-dataset.mjs --numbers=22,1270,2120,564,3574 --out=data/pythenians.poc.json",
+    "pythenians:build": "node scripts/build-pythenians-dataset.mjs --out=data/pythenians.json"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4",
+    "bs58": "^6.0.0"
+  }
+}
