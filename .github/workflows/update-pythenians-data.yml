@@ -6,7 +6,7 @@ on:
       full_collection:
         description: "Build the full collection dataset"
         required: true
-        default: false
+        default: true
         type: boolean
       numbers:
         description: "Comma-separated Pythenian numbers for a PoC run"
@@ -58,7 +58,9 @@ jobs:
           RPC_THROTTLE_MS: "250"
           HISTORY_PAGE_LIMIT: "20"
           TRANSACTION_BATCH_SIZE: "100"
-          TRANSFER_FALLBACK: "false"
+          TRANSFER_FALLBACK: "true"
+          PYTHENIANS_IMAGE_SIZE: "560"
+          PYTHENIANS_IMAGE_QUALITY: "82"
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.full_collection }}" != "true" ]; then
             node scripts/build-pythenians-dataset.mjs --numbers="${{ inputs.numbers }}" --out=data/pythenians.poc.json

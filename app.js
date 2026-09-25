@@ -359,14 +359,19 @@ function drawEmptyCard() {
   context.fillText("PYTHLIST.COM", 72, 110);
   context.fillStyle = "rgba(255,255,255,0.62)";
   context.font = "500 28px Archivo, sans-serif";
-  context.fillText("Enter a verified Pythenian number to generate a card.", 72, 170);
+  context.fillText("Enter your Pythenians NFT number to build a card.", 72, 170);
 }
 
 async function drawShareCard(record, pythWon) {
   const context = shareCanvas.getContext("2d");
   const imageUrl = record.localImage ? `data/${record.localImage}` : record.image;
-  const image = await loadImage(imageUrl);
+  const [image, brandMark] = await Promise.all([
+    loadImage(imageUrl),
+    loadImage("pythlogoforpythlist.png")
+  ]);
   const daysHeld = calculateDaysHeld(record.heldSince);
+
+  context.clearRect(0, 0, 1200, 675);
 
   context.fillStyle = "#261e35";
   context.fillRect(0, 0, 1200, 675);
@@ -385,91 +390,117 @@ async function drawShareCard(record, pythWon) {
   context.fillStyle = sheen;
   context.fillRect(0, 0, 1200, 675);
 
-  context.strokeStyle = "rgba(248,245,255,0.10)";
-  context.lineWidth = 1;
-  for (let x = 0; x <= 1200; x += 48) {
-    context.beginPath();
-    context.moveTo(x, 0);
-    context.lineTo(x, 675);
-    context.stroke();
-  }
-  for (let y = 0; y <= 675; y += 48) {
-    context.beginPath();
-    context.moveTo(0, y);
-    context.lineTo(1200, y);
-    context.stroke();
-  }
+  const panelFill = "rgba(49,41,64,0.62)";
+  const panelStroke = "rgba(248,245,255,0.14)";
 
-  context.strokeStyle = "rgba(255,255,255,0.18)";
+  context.shadowColor = "rgba(9,5,20,0.32)";
+  context.shadowBlur = 46;
+  context.shadowOffsetY = 18;
+  context.fillStyle = "rgba(49,41,64,0.42)";
+  drawRoundedRect(context, 44, 44, 1112, 587, 30);
+  context.fill();
+  context.shadowColor = "transparent";
+  context.strokeStyle = panelStroke;
   context.lineWidth = 2;
-  context.strokeRect(28, 28, 1144, 619);
+  context.stroke();
 
-  context.fillStyle = "#53eafd";
-  context.font = "900 34px Archivo, sans-serif";
-  context.fillText("PYTHLIST", 72, 92);
+  context.save();
+  context.globalAlpha = 0.2;
+  context.drawImage(brandMark, 842, -18, 300, 300);
+  context.restore();
+
+  context.shadowColor = "rgba(9,5,20,0.38)";
+  context.shadowBlur = 34;
+  context.shadowOffsetY = 16;
+  context.fillStyle = "rgba(36,27,53,0.72)";
+  context.fillRect(72, 72, 504, 530);
+  context.shadowColor = "transparent";
 
   context.save();
   context.beginPath();
-  context.rect(72, 128, 456, 456);
+  context.rect(90, 90, 468, 468);
   context.clip();
-  context.drawImage(image, 72, 128, 456, 456);
+  context.drawImage(image, 90, 90, 468, 468);
   context.restore();
 
-  context.strokeStyle = "#f2a9ff";
-  context.lineWidth = 4;
-  context.strokeRect(72, 128, 456, 456);
+  context.beginPath();
+  context.rect(90, 90, 468, 468);
+  context.strokeStyle = "rgba(242,169,255,0.42)";
+  context.lineWidth = 3;
+  context.stroke();
 
-  context.fillStyle = "rgba(248,245,255,0.56)";
-  context.font = "800 24px IBM Plex Mono, monospace";
-  context.fillText("PYTHENIAN NFT", 590, 166);
+  context.fillStyle = "rgba(248,245,255,0.58)";
+  context.font = "800 20px IBM Plex Mono, monospace";
+  context.fillText("PYTHENIANS NFT", 632, 118);
 
   context.fillStyle = "#f8f5ff";
-  context.font = "900 78px Archivo, sans-serif";
-  context.fillText(`#${record.number}`, 590, 250);
-
-  context.strokeStyle = "rgba(255,255,255,0.20)";
-  context.lineWidth = 2;
-  context.strokeRect(590, 300, 250, 116);
-  context.strokeRect(858, 300, 250, 116);
+  context.font = "900 86px Archivo, sans-serif";
+  context.fillText(`#${record.number}`, 632, 206);
 
   context.fillStyle = "rgba(248,245,255,0.52)";
-  context.font = "800 18px IBM Plex Mono, monospace";
-  context.fillText("DAYS HELD", 612, 338);
-  context.fillText("HELD SINCE", 880, 338);
+  context.font = "600 23px Archivo, sans-serif";
+  context.fillText("Current ownership streak", 636, 244);
 
-  context.fillStyle = "#53eafd";
-  context.font = "900 54px Archivo, sans-serif";
-  context.fillText(`${daysHeld}`, 612, 392);
+  context.fillStyle = panelFill;
+  drawRoundedRect(context, 632, 284, 250, 142, 22);
+  context.fill();
+  drawRoundedRect(context, 904, 284, 204, 142, 22);
+  context.fill();
+  context.strokeStyle = panelStroke;
+  context.lineWidth = 2;
+  drawRoundedRect(context, 632, 284, 250, 142, 22);
+  context.stroke();
+  drawRoundedRect(context, 904, 284, 204, 142, 22);
+  context.stroke();
+
+  context.fillStyle = "rgba(248,245,255,0.48)";
+  context.font = "800 17px IBM Plex Mono, monospace";
+  context.fillText("DAYS OWNED", 656, 324);
+  context.fillText("SINCE", 928, 324);
 
   context.fillStyle = "#f8f5ff";
-  context.font = "900 28px IBM Plex Mono, monospace";
+  context.font = "900 68px Archivo, sans-serif";
+  context.fillText(`${daysHeld}`, 656, 394);
+
+  context.fillStyle = "#f8f5ff";
+  context.font = "800 25px Archivo, sans-serif";
   context.fillText(new Date(record.heldSince).toLocaleDateString("en-US", {
     month: "short",
-    day: "numeric",
-    year: "numeric"
-  }), 880, 386);
+    day: "numeric"
+  }), 928, 374);
+  context.fillStyle = "rgba(248,245,255,0.48)";
+  context.font = "700 17px IBM Plex Mono, monospace";
+  context.fillText(new Date(record.heldSince).getFullYear().toString(), 928, 402);
 
-  context.strokeStyle = "rgba(255,255,255,0.20)";
+  context.fillStyle = panelFill;
+  drawRoundedRect(context, 632, 462, 476, 92, 22);
+  context.fill();
+  context.strokeStyle = panelStroke;
   context.lineWidth = 2;
-  context.strokeRect(590, 448, 518, 92);
+  drawRoundedRect(context, 632, 462, 476, 92, 22);
+  context.stroke();
 
-  context.fillStyle = "rgba(248,245,255,0.52)";
-  context.font = "800 18px IBM Plex Mono, monospace";
-  context.fillText("PYTH WON", 612, 484);
-
-  context.fillStyle = pythWon ? "#5ee9b5" : "rgba(248,245,255,0.38)";
-  context.font = "900 34px IBM Plex Mono, monospace";
-  context.fillText(pythWon ? `${pythWon} PYTH` : "NOT ENTERED", 612, 522);
-
-  context.fillStyle = "rgba(248,245,255,0.42)";
+  context.fillStyle = "rgba(248,245,255,0.48)";
   context.font = "800 16px IBM Plex Mono, monospace";
-  context.fillText("verified marketplace sale", 590, 598);
+  context.fillText("$PYTH WHEEL REWARDS", 656, 497);
+
+  context.fillStyle = pythWon ? "#f8f5ff" : "rgba(248,245,255,0.38)";
+  context.font = "900 34px IBM Plex Mono, monospace";
+  context.fillText(pythWon ? `${pythWon} $PYTH` : "NOT ENTERED", 656, 535);
+
+  context.strokeStyle = "rgba(83,234,253,0.32)";
+  context.lineWidth = 3;
+  context.beginPath();
+  context.moveTo(632, 586);
+  context.lineTo(790, 586);
+  context.stroke();
 
   context.fillStyle = "rgba(248,245,255,0.78)";
   context.font = "800 22px IBM Plex Mono, monospace";
   context.textAlign = "right";
   context.fillText("PYTHLIST.COM", 1128, 610);
   context.textAlign = "left";
+  context.shadowColor = "transparent";
 }
 
 function renderShareResult(record) {
@@ -483,8 +514,8 @@ function renderShareResult(record) {
       <img src="${imageUrl}" alt="">
     </div>
     <div class="share-result-body">
-      <p>Pythenian #${record.number}</p>
-      <strong>${daysHeld} ${daysHeld === 1 ? "day" : "days"} held</strong>
+      <p>Pythenians #${record.number}</p>
+      <strong>${daysHeld} ${daysHeld === 1 ? "day" : "days"} owned</strong>
       <span>Since ${new Date(record.heldSince).toLocaleDateString("en-US", {
         year: "numeric",
         month: "short",

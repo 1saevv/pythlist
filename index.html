@@ -169,21 +169,24 @@
         <div class="view" data-view="share-card">
           <section class="share-hero">
             <p class="kicker">Share Card</p>
-            <h2>Pythenian Share Card Generator</h2>
-            <p class="hero-copy">Create a PNG card from the generated PythList dataset.</p>
+            <h2>Pythenians Share Card</h2>
+            <p class="hero-copy">Enter your NFT number and build a clean card to share.</p>
           </section>
 
           <section class="share-panel">
             <form id="shareForm" class="share-form">
               <label>
-                <span>Pythenian number</span>
-                <input id="pythenianNumber" type="number" min="1" step="1" inputmode="numeric" placeholder="3574" required>
+                <span>Pythenians number</span>
+                <input id="pythenianNumber" type="number" min="1" step="1" inputmode="numeric" placeholder="Enter your Pythenians NFT number. Example 3574" required>
               </label>
               <label>
-                <span>PYTH won</span>
-                <input id="pythWon" type="text" inputmode="decimal" placeholder="Optional">
+                <span>Pyth Wheel rewards</span>
+                <input id="pythWon" type="text" inputmode="decimal" placeholder="Optional PYTH amount">
               </label>
-              <button class="primary-button" type="submit">Generate</button>
+              <button class="primary-button generate-button" type="submit">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4"></path><path d="M12 17v4"></path><path d="M3 12h4"></path><path d="M17 12h4"></path><path d="m5.6 5.6 2.8 2.8"></path><path d="m15.6 15.6 2.8 2.8"></path><path d="m18.4 5.6-2.8 2.8"></path><path d="m8.4 15.6-2.8 2.8"></path></svg>
+                Generate
+              </button>
             </form>
 
             <div class="share-status" id="shareStatus" role="status">Loading Pythenian dataset...</div>

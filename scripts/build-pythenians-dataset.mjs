@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import bs58 from "bs58";
+import sharp from "sharp";
 import { Connection, PublicKey } from "@solana/web3.js";
 
 const DEFAULT_RPC_URL = "https://api.mainnet-beta.solana.com";
@@ -21,6 +22,8 @@ const throttleMs = Number(args.throttleMs || process.env.RPC_THROTTLE_MS || 250)
 const historyPageLimit = Number(args.historyPageLimit || process.env.HISTORY_PAGE_LIMIT || 12);
 const transactionBatchSize = Number(args.transactionBatchSize || process.env.TRANSACTION_BATCH_SIZE || 100);
 const transferFallback = args.transferFallback === true || process.env.TRANSFER_FALLBACK === "true";
+const imageSize = Number(args.imageSize || process.env.PYTHENIANS_IMAGE_SIZE || 560);
+const imageQuality = Number(args.imageQuality || process.env.PYTHENIANS_IMAGE_QUALITY || 82);
 const requestedNumbers = parseNumbers(args.numbers, args.limit);
 
 const connection = new Connection(rpcUrl, "confirmed");
@@ -328,8 +331,7 @@ async function fetchOfficialMetadata(number) {
 }
 
 async function mirrorImage(number, imageUrl) {
-  const extension = path.extname(new URL(imageUrl).pathname) || ".png";
-  const relativePath = `pythenians-images/${number}${extension}`;
+  const relativePath = `pythenians-images/${number}.webp`;
   const outputPath = path.join(outDir, relativePath);
 
   try {
@@ -344,8 +346,17 @@ async function mirrorImage(number, imageUrl) {
     throw new Error(`Image ${imageUrl} returned ${response.status}`);
   }
 
+  const sourceBuffer = Buffer.from(await response.arrayBuffer());
+  const optimizedImage = await sharp(sourceBuffer)
+    .resize(imageSize, imageSize, {
+      fit: "inside",
+      withoutEnlargement: true
+    })
+    .webp({ quality: imageQuality })
+    .toBuffer();
+
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
-  await fs.writeFile(outputPath, Buffer.from(await response.arrayBuffer()));
+  await fs.writeFile(outputPath, optimizedImage);
 
   return relativePath;
 }
