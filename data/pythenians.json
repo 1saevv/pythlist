@@ -440,15 +440,6 @@
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
-  "53": {
-    "number": 53,
-    "mint": "FYyyExH58zUaL8YT6n5FEvta9mc2DG4ZNcu4hVEcFmvp",
-    "image": "https://ipfs.pythenians.xyz/nft/2b60cf3e07833826243e09c599e5674479398ccc.png",
-    "localImage": "pythenians-images/53.webp",
-    "heldSince": "2026-09-29T04:46:32.000Z",
-    "heldSinceSource": "marketplace_sale",
-    "verification": "verified"
-  },
   "54": {
     "number": 54,
     "mint": "DDfm96dx5D2z8JVK2KydDzDUrCAH6eo2ja2MDAbGRxj7",
@@ -1724,7 +1715,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/level3/206.png",
     "localImage": "pythenians-images/206.webp",
     "heldSince": "2026-09-29T14:57:15.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "207": {
@@ -4429,15 +4420,6 @@
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
-  "540": {
-    "number": 540,
-    "mint": "CE5Dwa1HRiy7GLDGtw933j2ysghzCy8V84sjpTT3KQaY",
-    "image": "https://ipfs.pythenians.xyz/nft/b1a47bb3b94ac63dbf075158fa163383389b7848.png",
-    "localImage": "pythenians-images/540.webp",
-    "heldSince": "2025-06-16T14:53:11.000Z",
-    "heldSinceSource": "marketplace_sale",
-    "verification": "verified"
-  },
   "541": {
     "number": 541,
     "mint": "HWgz5FUgpzRSLFh1Fnot88fCZ5xnpr9UqQQKK81rERME",
@@ -4873,9 +4855,9 @@
   "597": {
     "number": 597,
     "mint": "82QV3sNJM3DdEP8WAmzJTKEMpDXUsptDdC3ioPnGaXUY",
-    "image": "https://ipfs.pythenians.xyz/nft/22f921b0391959ca7ac5575d916e7deeb55c8e03.png",
+    "image": "https://ipfs.pythenians.xyz/nft/level3/597.png",
     "localImage": "pythenians-images/597.webp",
-    "heldSince": "2026-09-27T01:26:13.000Z",
+    "heldSince": "2026-09-30T19:01:50.000Z",
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
@@ -6050,15 +6032,6 @@
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
-  "751": {
-    "number": 751,
-    "mint": "ArcGvqKoMkanMYNXznzUbJt7PBzPXuC99gkHEG9cmDv",
-    "image": "https://ipfs.pythenians.xyz/nft/af11a7fdccd015776dbc01eaf93133a4268a970a.png",
-    "localImage": "pythenians-images/751.webp",
-    "heldSince": "2025-04-25T06:27:57.000Z",
-    "heldSinceSource": "marketplace_sale",
-    "verification": "verified"
-  },
   "752": {
     "number": 752,
     "mint": "HYZi1EcjtWGpYJMBaQRSZ2UJzXb6oz1BPEzUEzy28cFb",
@@ -6298,8 +6271,8 @@
     "mint": "CFxfjgTHF57NbYy3vojHoYE77QTbaGMp5rkMQ2LyJmyh",
     "image": "https://ipfs.pythenians.xyz/nft/fb7b4bcf34fd0e055b31fa0946cdaeb12261d335.png",
     "localImage": "pythenians-images/779.webp",
-    "heldSince": "2026-07-11T05:14:21.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-10-01T08:48:44.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "780": {
@@ -6308,7 +6281,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/42bdb4c1a99d37dd500ab49d2d2584987ce8d825.png",
     "localImage": "pythenians-images/780.webp",
     "heldSince": "2026-09-30T02:03:35.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "781": {
@@ -6848,15 +6821,6 @@
     "image": "https://ipfs.pythenians.xyz/nft/79ba91667b1fa496cd820ae1f2eeab4c469848ff.png",
     "localImage": "pythenians-images/846.webp",
     "heldSince": "2025-12-31T10:51:32.000Z",
-    "heldSinceSource": "marketplace_sale",
-    "verification": "verified"
-  },
-  "847": {
-    "number": 847,
-    "mint": "FTXg7ZroLK386XDswHtfyvpzkv9ehAXBf9454zKaDGM2",
-    "image": "https://ipfs.pythenians.xyz/nft/ba96869f34d0ffa769dadb69a94760bf56533f4d.png",
-    "localImage": "pythenians-images/847.webp",
-    "heldSince": "2026-09-09T17:10:12.000Z",
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
@@ -8642,7 +8606,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/202992f3547b7749230ebcc2eab3810d874caf11.png",
     "localImage": "pythenians-images/1068.webp",
     "heldSince": "2026-09-30T06:41:53.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "1069": {
@@ -8978,15 +8942,6 @@
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
-  "1110": {
-    "number": 1110,
-    "mint": "HTfXpZPgTvAeR7jxba2ivfuzHvS35ZebcwL6vMkZGkEp",
-    "image": "https://ipfs.pythenians.xyz/nft/c758c353796b87f6207a40adb2726acb2b8d66c6.png",
-    "localImage": "pythenians-images/1110.webp",
-    "heldSince": "2026-08-17T12:03:02.000Z",
-    "heldSinceSource": "marketplace_sale",
-    "verification": "verified"
-  },
   "1111": {
     "number": 1111,
     "mint": "9ftfwiLm5wum3ZvpqVcCSDRDrdfvaK4LTeKc2tS5WWnS",
@@ -9224,7 +9179,7 @@
   "1141": {
     "number": 1141,
     "mint": "GJpEw6gKNGXqj2XBoRt2C5zTxm31Jnq61Nh1BfLamAvc",
-    "image": "https://ipfs.pythenians.xyz/nft/level2/1141.png",
+    "image": "https://ipfs.pythenians.xyz/nft/level3/1141.png",
     "localImage": "pythenians-images/1141.webp",
     "heldSince": "2026-03-23T10:19:42.000Z",
     "heldSinceSource": "marketplace_sale",
@@ -9858,7 +9813,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/911f17aa93107af847c74549112eeafb20a2901e.png",
     "localImage": "pythenians-images/1217.webp",
     "heldSince": "2026-09-30T04:16:17.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "1218": {
@@ -10399,7 +10354,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/7a5335ef74c0c2f049e4211d4de2b79eb86de800.png",
     "localImage": "pythenians-images/1291.webp",
     "heldSince": "2026-09-30T04:15:28.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "1292": {
@@ -11217,8 +11172,8 @@
     "mint": "8oextkRiNSfD5P8kis2bnBRUhhXoSXqtSCVNJvuEYB2",
     "image": "https://ipfs.pythenians.xyz/nft/5ecb683066588ced408c0c95a7f528b797e669d0.png",
     "localImage": "pythenians-images/1393.webp",
-    "heldSince": "2025-02-25T14:28:39.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T15:40:02.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "1394": {
@@ -11226,8 +11181,8 @@
     "mint": "4AJXZMNYbhe4YNaEqtRfv9JnV1rkpNXTAKFvr8A5tzKt",
     "image": "https://ipfs.pythenians.xyz/nft/48c8ee75ef3b3d3386007ea3f408fa8bd63e23c5.png",
     "localImage": "pythenians-images/1394.webp",
-    "heldSince": "2025-02-21T07:38:29.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T15:34:55.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "1395": {
@@ -11244,8 +11199,8 @@
     "mint": "6bDtqLjGqVSh3L2p7exHAxRwRYZJGPApnbwPmzN7Hxpp",
     "image": "https://ipfs.pythenians.xyz/nft/08a89c510d1f28b00e63c779a7da8f81c970ac86.png",
     "localImage": "pythenians-images/1396.webp",
-    "heldSince": "2024-11-24T07:09:12.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T15:41:45.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "1397": {
@@ -11271,8 +11226,8 @@
     "mint": "4UqSGBxhsCKq3EDRvwaED7qjgUq7upPJXAqjC277zSHK",
     "image": "https://ipfs.pythenians.xyz/nft/18c9291dbc6c23e83aac8fa6ab0ac920cfd51e8a.png",
     "localImage": "pythenians-images/1399.webp",
-    "heldSince": "2024-11-24T07:18:13.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T15:38:17.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "1400": {
@@ -11289,8 +11244,8 @@
     "mint": "GdFhnXWTHwFigoEH2mFdBvFvK4PiJL3AFwGMWxPFSGXH",
     "image": "https://ipfs.pythenians.xyz/nft/b4ce99630b9ef70631ed54382a4bedc0aa2673f0.png",
     "localImage": "pythenians-images/1401.webp",
-    "heldSince": "2024-12-02T19:04:11.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T15:41:15.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "1403": {
@@ -11298,8 +11253,8 @@
     "mint": "CxtMrHQj4H6apeRedQaFzhLBTZn9UEsbfYT9pj7QVCLv",
     "image": "https://ipfs.pythenians.xyz/nft/d00e02abae027cd246e3092247b0d3359238a1dd.png",
     "localImage": "pythenians-images/1403.webp",
-    "heldSince": "2024-11-24T07:41:17.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T15:45:58.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "1404": {
@@ -11307,8 +11262,8 @@
     "mint": "8B5UfgjXXPhgrs6ScWjpRfBDyhAi9GHRQWVGKEVs3qwt",
     "image": "https://ipfs.pythenians.xyz/nft/dbbff8880421f4768eb840ef373ed7769dcb3345.png",
     "localImage": "pythenians-images/1404.webp",
-    "heldSince": "2024-11-24T07:47:12.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T15:47:40.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "1405": {
@@ -11334,8 +11289,8 @@
     "mint": "92XTFeYKWYytRfGHoNm7yPWQF2T5wcRGHer9JRHuis6o",
     "image": "https://ipfs.pythenians.xyz/nft/bd5291196c091b6c42850b67fc3b50aae35ff6af.png",
     "localImage": "pythenians-images/1407.webp",
-    "heldSince": "2024-11-24T07:56:15.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T15:43:33.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "1408": {
@@ -11677,7 +11632,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/690b1eb55c79fe5ef341d78f3fc35a12dbabc797.png",
     "localImage": "pythenians-images/1447.webp",
     "heldSince": "2026-09-29T20:51:46.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "1448": {
@@ -12975,7 +12930,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "Unexpected token ',', ...\"g/plan\"}},,{\"jsonrpc\"... is not valid JSON"
+    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
   },
   "1611": {
     "number": 1611,
@@ -14650,7 +14605,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/cdc90428ddec432cf8ca1556fc1c6cfd330641f8.png",
     "localImage": "pythenians-images/1818.webp",
     "heldSince": "2026-09-30T02:33:05.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "1819": {
@@ -14794,7 +14749,7 @@
     "mint": "njRVaP9VF7uXa1vMkFukbervTGRZBAKaJx1deWgpRMs",
     "image": "https://ipfs.pythenians.xyz/nft/2915065eb92db461ef71faba0f011ac44cefeedc.png",
     "localImage": "pythenians-images/1834.webp",
-    "heldSince": "2024-11-25T16:27:12.000Z",
+    "heldSince": "2026-09-30T22:24:12.000Z",
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
@@ -16019,7 +15974,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/aa66a26baba5effc139fbf1ee2119bdeff364c3f.png",
     "localImage": "pythenians-images/1989.webp",
     "heldSince": "2026-09-29T13:41:16.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "1990": {
@@ -16153,7 +16108,7 @@
     "mint": "9ZmzhHZD73tYRgdkXDhHDc6c7cbgYqp5HNCwDMqAY5Ev",
     "image": "https://ipfs.pythenians.xyz/nft/0cb4b58baa916e81a367d422d88b0d445c6d3a78.png",
     "localImage": "pythenians-images/2006.webp",
-    "heldSince": "2026-09-29T13:48:55.000Z",
+    "heldSince": "2026-09-30T18:48:18.000Z",
     "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
@@ -16522,7 +16477,7 @@
     "mint": "7RZxej1irYrmmKRZxxxvwXCa69qzUtTntXzM3aX9dCca",
     "image": "https://ipfs.pythenians.xyz/nft/6ef37062acb0d7fde9c4026941a869d7c1b4667a.png",
     "localImage": "pythenians-images/2049.webp",
-    "heldSince": "2026-09-28T07:18:42.000Z",
+    "heldSince": "2026-09-30T11:11:45.000Z",
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
@@ -16856,15 +16811,6 @@
     "image": "https://ipfs.pythenians.xyz/nft/5ab429869d32b924afb284a5452cc3ebfe7ebd7e.png",
     "localImage": "pythenians-images/2089.webp",
     "heldSince": "2025-03-28T01:12:58.000Z",
-    "heldSinceSource": "marketplace_sale",
-    "verification": "verified"
-  },
-  "2090": {
-    "number": 2090,
-    "mint": "DtsBX9zqh4PVeHX4egUHXrc5gxtniQnjhKUkjr6DEjGc",
-    "image": "https://ipfs.pythenians.xyz/nft/ff10ffb5b92298dce7dafd0f322b5fa695e2217c.png",
-    "localImage": "pythenians-images/2090.webp",
-    "heldSince": "2026-09-01T06:51:43.000Z",
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
@@ -17252,7 +17198,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/acd13b611da9c6882f8516ea5aad4dec421b497d.png",
     "localImage": "pythenians-images/2139.webp",
     "heldSince": "2026-09-29T13:42:34.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "2140": {
@@ -17279,7 +17225,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/ce7991772085095a52ccac4af8dbc5fea4e0791b.png",
     "localImage": "pythenians-images/2142.webp",
     "heldSince": "2026-09-29T13:51:09.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "2145": {
@@ -18738,7 +18684,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/a55f92ebe69f58523a7403a3b7f5ab2a4132e8a1.png",
     "localImage": "pythenians-images/2324.webp",
     "heldSince": "2026-09-29T12:53:38.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "2325": {
@@ -18756,15 +18702,6 @@
     "image": "https://ipfs.pythenians.xyz/nft/c7ce6c4b98c1718fdeb8a037e7982f61a10a699f.png",
     "localImage": "pythenians-images/2326.webp",
     "heldSince": "2026-07-20T11:11:29.000Z",
-    "heldSinceSource": "marketplace_sale",
-    "verification": "verified"
-  },
-  "2327": {
-    "number": 2327,
-    "mint": "DjAzco4nrwNHVBaggdTLnQwH3TfC9AzazpRk3gntvhqD",
-    "image": "https://ipfs.pythenians.xyz/nft/2bc79fac2b902c4cfad9eb120aaf078247e75198.png",
-    "localImage": "pythenians-images/2327.webp",
-    "heldSince": "2026-07-30T10:38:34.000Z",
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
@@ -19303,7 +19240,7 @@
   "2390": {
     "number": 2390,
     "mint": "FoAHTEWTrrp5Eix65KGHdo9c7rLyt3proGDvsyKhRk5R",
-    "image": "https://ipfs.pythenians.xyz/nft/0d9b342b5f244cdf40c0226c8b209127c69be707.png",
+    "image": "https://ipfs.pythenians.xyz/nft/level3/2390.png",
     "localImage": "pythenians-images/2390.webp",
     "heldSince": "2026-09-25T07:53:06.000Z",
     "heldSinceSource": "marketplace_sale",
@@ -19657,7 +19594,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/e534cae087c196fe3dabec8d0818002c58da3c52.png",
     "localImage": "pythenians-images/2431.webp",
     "heldSince": "2026-09-29T17:17:25.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "2432": {
@@ -19927,7 +19864,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/b99843acaba06fbdcc231350f964c8533cb65379.png",
     "localImage": "pythenians-images/2465.webp",
     "heldSince": "2026-09-29T15:32:52.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "2466": {
@@ -22716,7 +22653,7 @@
     "mint": "9rgQ2rELeZDScidw7uyH5GtztiMHyAqUnJwkmtJBP3fV",
     "image": "https://ipfs.pythenians.xyz/nft/0c877fa33132468c860c064447d729a96117e6fd.png",
     "localImage": "pythenians-images/2794.webp",
-    "heldSince": "2026-09-28T21:05:13.000Z",
+    "heldSince": "2026-09-30T22:24:12.000Z",
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
@@ -22860,8 +22797,8 @@
     "mint": "8d9mZeeCgN2ngErFXCpKLwm2qcQaDabnybALeZQCY4VH",
     "image": "https://ipfs.pythenians.xyz/nft/a81d1a0af93f078fbddbfa08a42f770b7474c089.png",
     "localImage": "pythenians-images/2814.webp",
-    "heldSince": "2026-09-21T21:14:45.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-10-01T08:48:44.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "2815": {
@@ -23834,7 +23771,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/abde8218af8db7ef801bb773601458bc14b7e607.png",
     "localImage": "pythenians-images/2926.webp",
     "heldSince": "2026-09-30T02:33:15.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "2927": {
@@ -24499,8 +24436,8 @@
     "mint": "AkF9SQuVGP9maxPkUTGmXiWPUZM49fbK7DLyTWQuhD5Z",
     "image": "https://ipfs.pythenians.xyz/nft/3a577a1c826b5ded7d349b59b2a04e505e9220be.png",
     "localImage": "pythenians-images/3007.webp",
-    "heldSince": "2025-03-31T16:37:04.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T15:01:34.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "3008": {
@@ -24761,8 +24698,8 @@
     "mint": "UzNxhFHdyZMZGX5subryCP4nc81S6D8amg4rQWLJ7Qr",
     "image": "https://ipfs.pythenians.xyz/nft/5a61f08380b07755f938fd656f61c0e5d6f27959.png",
     "localImage": "pythenians-images/3037.webp",
-    "heldSince": "2024-12-06T07:48:35.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T16:23:24.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "3038": {
@@ -24817,15 +24754,6 @@
     "localImage": "pythenians-images/3043.webp",
     "heldSince": "2025-10-14T17:14:57.000Z",
     "heldSinceSource": "marketplace_sale",
-    "verification": "verified"
-  },
-  "3044": {
-    "number": 3044,
-    "mint": "2SagdD9Xp6iMBEVMmaEmNMEaVLxPc9Nu3ZWURUJgMFU4",
-    "image": "https://ipfs.pythenians.xyz/nft/af38047f90405a339cbe109a9a9a09c9af72fd83.png",
-    "localImage": "pythenians-images/3044.webp",
-    "heldSince": "2026-09-30T09:58:18.000Z",
-    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "3045": {
@@ -25238,8 +25166,8 @@
     "mint": "D4yMPFeXEFYy5gCpL212qRQLGavdRoBPRNULRHBm9WP1",
     "image": "https://ipfs.pythenians.xyz/nft/a8436610b82ddd83a07692d330a8685efce626c1.png",
     "localImage": "pythenians-images/3092.webp",
-    "heldSince": "2026-09-30T04:39:46.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSince": "2026-09-30T11:11:45.000Z",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "3093": {
@@ -25296,22 +25224,13 @@
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
-  "3099": {
-    "number": 3099,
-    "mint": "5czMS29QyFbRjzXRxnaiggV236Cv3UaQtUyC3uAN9G85",
-    "image": "https://ipfs.pythenians.xyz/nft/e70d0cbc082a8d1e10e6620c5cd2c150d80b3d43.png",
-    "localImage": "pythenians-images/3099.webp",
-    "heldSince": "2026-07-31T10:38:39.000Z",
-    "heldSinceSource": "marketplace_sale",
-    "verification": "verified"
-  },
   "3100": {
     "number": 3100,
     "mint": "51CkkhsWCFYuwsf6zJSSwaQi6AVkEhRSvv4KfAX2pVZC",
     "image": "https://ipfs.pythenians.xyz/nft/255e178c5f889329be64817682e2557200d98de5.png",
     "localImage": "pythenians-images/3100.webp",
     "heldSince": "2026-09-29T17:51:28.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "3101": {
@@ -25671,15 +25590,6 @@
     "image": "https://ipfs.pythenians.xyz/nft/ea9a99c8cb0581856d7f5c1c976ed6f2b25cac13.png",
     "localImage": "pythenians-images/3143.webp",
     "heldSince": "2025-10-06T12:48:45.000Z",
-    "heldSinceSource": "marketplace_sale",
-    "verification": "verified"
-  },
-  "3144": {
-    "number": 3144,
-    "mint": "CaW6N39J5AydGRRhvy3s7xz1QoCf9a1yUzW1tb7XYW3Z",
-    "image": "https://ipfs.pythenians.xyz/nft/ac7c52ca3a6bb8a6570f4916092247feae74e13f.png",
-    "localImage": "pythenians-images/3144.webp",
-    "heldSince": "2026-08-07T11:28:08.000Z",
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
@@ -26247,8 +26157,8 @@
     "mint": "5pFNsQwytQAzzmjY3anWYthPiXGYzfiemwGLdG2e9t5f",
     "image": "https://ipfs.pythenians.xyz/nft/bced1140014607f8bde7f4d230dd308d7597e359.png",
     "localImage": "pythenians-images/3212.webp",
-    "heldSince": "2025-01-09T12:09:29.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T15:42:11.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "3213": {
@@ -26969,7 +26879,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/level3/3294.png",
     "localImage": "pythenians-images/3294.webp",
     "heldSince": "2026-09-29T12:23:22.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "3296": {
@@ -27221,7 +27131,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/dbd9d895503a232236a5bb9dab7cb8e86b88f597.png",
     "localImage": "pythenians-images/3323.webp",
     "heldSince": "2026-09-29T18:05:29.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "3324": {
@@ -27472,8 +27382,8 @@
     "mint": "2J3U59gR4WaiVBYxBsB7vAhpakyghQjfpCcq7rd47AhT",
     "image": "https://ipfs.pythenians.xyz/nft/9f3b1c97e47bf49a7fa1b8d131c249ce725ee9bb.png",
     "localImage": "pythenians-images/3352.webp",
-    "heldSince": "2025-09-16T17:53:53.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T11:03:19.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "3353": {
@@ -27679,8 +27589,8 @@
     "mint": "47Rgshytqq8sQmeVsr8TE96qQwe5SCH3zzejLoa3V1bq",
     "image": "https://ipfs.pythenians.xyz/nft/15a5845129afbefc6aa44b6510723f3e3b7ae1f5.png",
     "localImage": "pythenians-images/3377.webp",
-    "heldSince": "2026-09-27T19:29:22.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T22:24:15.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "3379": {
@@ -28183,8 +28093,8 @@
     "mint": "CVaStYnE8J1WVxfeZrWcyhto4bEDfWxXvxsEWuWn7Qta",
     "image": "https://ipfs.pythenians.xyz/nft/86baa6d03528e9e798a455e9d2af86634cf21a85.png",
     "localImage": "pythenians-images/3435.webp",
-    "heldSince": "2024-12-27T15:30:51.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T11:53:06.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "3436": {
@@ -28363,8 +28273,8 @@
     "mint": "5TiHeHTyNutnHCReJmS5YvYWPDbGdYtg5kLime7sgaM5",
     "image": "https://ipfs.pythenians.xyz/nft/039e72242ce83f71811ff3df92cc6b9fb2e67e12.png",
     "localImage": "pythenians-images/3455.webp",
-    "heldSince": "2025-01-02T16:36:43.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T11:52:48.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "3456": {
@@ -29150,15 +29060,6 @@
     "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
-  "3553": {
-    "number": 3553,
-    "mint": "5t1fBWnqvUUHCqAfYZA4QNCCEA3omdkEu22rKLkCBE5k",
-    "image": "https://ipfs.pythenians.xyz/nft/90e75685e44241f1174df9b4b7be43da4990c59d.png",
-    "localImage": "pythenians-images/3553.webp",
-    "heldSince": "2025-03-27T09:26:14.000Z",
-    "heldSinceSource": "marketplace_sale",
-    "verification": "verified"
-  },
   "3555": {
     "number": 3555,
     "mint": "5tEkDxQVdeVy86r2yfvny6pjsVZgCaf3uAcRLWSdMip2",
@@ -29228,7 +29129,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/level3/3563.png",
     "localImage": "pythenians-images/3563.webp",
     "heldSince": "2026-09-30T09:51:29.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "3564": {
@@ -29678,7 +29579,7 @@
     "image": "https://ipfs.pythenians.xyz/nft/6c9f4aa532d2c05bfda578212db15aa73ea5f985.png",
     "localImage": "pythenians-images/3616.webp",
     "heldSince": "2026-09-29T16:04:57.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "3617": {
@@ -29702,10 +29603,10 @@
   "3619": {
     "number": 3619,
     "mint": "4NSPJhvz6CmAgaehqsEe7ghMPYKLpNqZxgANYB8c414p",
-    "image": "https://ipfs.pythenians.xyz/nft/8c4f78c58a409d6dd6af621f136b756a5f265e24.png",
+    "image": "https://ipfs.pythenians.xyz/nft/level3/3619.png",
     "localImage": "pythenians-images/3619.webp",
-    "heldSince": "2026-09-09T19:55:39.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-09-30T12:44:10.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "3620": {
