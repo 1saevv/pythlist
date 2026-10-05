@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "pythenians:poc": "node scripts/build-pythenians-dataset.mjs --numbers=3574,786,2446,3360,1270 --out=data/pythenians.poc.json --transferFallback=true",
-    "pythenians:build": "node scripts/build-pythenians-dataset.mjs --out=data/pythenians.json"
+    "pythenians:build": "node scripts/build-pythenians-dataset.mjs --out=data/pythenians.json",
+    "pythenians:refresh-metadata": "node scripts/refresh-pythenians-metadata.mjs --data=data/pythenians.json"
   },
   "dependencies": {
     "@solana/web3.js": "^1.98.4",

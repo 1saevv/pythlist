@@ -65,7 +65,7 @@ async function main() {
     try {
       officialMetadata = await fetchOfficialMetadata(number);
       assertOfficialMetadata(number, officialMetadata);
-      localImage = await mirrorImage(number, officialMetadata.image);
+      localImage = await mirrorImage(number, officialMetadata.image, previousRecord?.image);
 
       if (!mint) {
         throw new Error(`Missing mint for Pythenians #${number}`);
@@ -115,12 +115,13 @@ async function main() {
 
         records[key] = makePublicRecord({
           number,
-          mint,
-          image: officialMetadata.image,
-          localImage,
-          heldSince: null,
-          heldSinceSource,
-          verification
+        mint,
+        image: officialMetadata.image,
+        localImage,
+        level: extractLevel(officialMetadata),
+        heldSince: null,
+        heldSinceSource,
+        verification
         });
 
         state[key] = {
@@ -136,6 +137,7 @@ async function main() {
         mint,
         image: officialMetadata.image,
         localImage,
+        level: extractLevel(officialMetadata),
         heldSince,
         heldSinceSource,
         verification
@@ -165,6 +167,7 @@ async function main() {
         mint,
         image: officialMetadata?.image || previousRecord?.image || null,
         localImage: localImage || previousRecord?.localImage || null,
+        level: officialMetadata ? extractLevel(officialMetadata) : previousRecord?.level || 1,
         heldSince: null,
         heldSinceSource: "unresolved",
         verification: "unresolved",
@@ -189,6 +192,7 @@ function makePublicRecord(record) {
     mint: record.mint,
     image: record.image,
     localImage: record.localImage,
+    level: normalizeLevel(record.level),
     heldSince: record.heldSince,
     heldSinceSource: record.heldSinceSource,
     verification: record.verification
@@ -373,15 +377,18 @@ async function fetchOfficialMetadata(number) {
   return response.json();
 }
 
-async function mirrorImage(number, imageUrl) {
+async function mirrorImage(number, imageUrl, previousImageUrl = null) {
   const relativePath = `pythenians-images/${number}.webp`;
   const outputPath = path.join(outDir, relativePath);
+  const shouldRefresh = previousImageUrl && previousImageUrl !== imageUrl;
 
-  try {
-    await fs.access(outputPath);
-    return relativePath;
-  } catch (error) {
-    if (error.code !== "ENOENT") throw error;
+  if (!shouldRefresh) {
+    try {
+      await fs.access(outputPath);
+      return relativePath;
+    } catch (error) {
+      if (error.code !== "ENOENT") throw error;
+    }
   }
 
   const response = await withRetry(() => fetch(imageUrl));
@@ -402,6 +409,19 @@ async function mirrorImage(number, imageUrl) {
   await fs.writeFile(outputPath, optimizedImage);
 
   return relativePath;
+}
+
+function extractLevel(metadata) {
+  const levelTrait = metadata.attributes?.find((attribute) => {
+    return String(attribute.trait_type).toLowerCase() === "level";
+  });
+
+  return normalizeLevel(levelTrait?.value);
+}
+
+function normalizeLevel(value) {
+  const level = Number(value);
+  return [1, 2, 3].includes(level) ? level : 1;
 }
 
 function assertOfficialMetadata(number, metadata) {

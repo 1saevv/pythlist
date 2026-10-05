@@ -173,6 +173,39 @@ const statusLabels = {
   "too-late": "Too Late"
 };
 
+const levelThemes = {
+  1: {
+    label: "Level 1",
+    shortLabel: "LVL 1",
+    frame: "#8b5cf6",
+    glow: "rgba(232,50,134,0.24)",
+    reward: "#5ee9b5",
+    background: ["#160d20", "#100b17", "#0b0711", "#050307"],
+    panel: "rgba(8,5,13,0.96)",
+    line: "rgba(248,245,255,0.17)"
+  },
+  2: {
+    label: "Level 2",
+    shortLabel: "LVL 2",
+    frame: "#a78bfa",
+    glow: "rgba(139,92,246,0.36)",
+    reward: "#a78bfa",
+    background: ["#21133b", "#171028", "#100b17", "#050307"],
+    panel: "rgba(13,8,24,0.96)",
+    line: "rgba(167,139,250,0.26)"
+  },
+  3: {
+    label: "Level 3",
+    shortLabel: "LVL 3",
+    frame: "#ffd236",
+    glow: "rgba(255,210,54,0.42)",
+    reward: "#ffd236",
+    background: ["#3d2810", "#281327", "#100b17", "#050307"],
+    panel: "rgba(20,12,10,0.96)",
+    line: "rgba(255,210,54,0.28)"
+  }
+};
+
 function normalize(value) {
   return value.toLowerCase().trim();
 }
@@ -323,6 +356,19 @@ function calculateDaysHeld(heldSince) {
   return Math.max(0, Math.floor((Date.now() - new Date(heldSince).getTime()) / 86400000));
 }
 
+function getPythenianLevel(record) {
+  const level = Number(record?.level);
+  return [1, 2, 3].includes(level) ? level : 1;
+}
+
+function getLevelTheme(record) {
+  return levelThemes[getPythenianLevel(record)];
+}
+
+function getShareImageUrl(record) {
+  return record.localImage ? `data/${record.localImage}` : record.image;
+}
+
 function loadImage(url) {
   return new Promise((resolve, reject) => {
     const image = new Image();
@@ -352,9 +398,9 @@ function drawEmptyCard() {
 
   const context = shareCanvas.getContext("2d");
   const gradient = context.createLinearGradient(0, 0, 1200, 675);
-  gradient.addColorStop(0, "#211932");
-  gradient.addColorStop(0.55, "#3a284e");
-  gradient.addColorStop(1, "#1f2f3d");
+  gradient.addColorStop(0, "#160d20");
+  gradient.addColorStop(0.55, "#0b0711");
+  gradient.addColorStop(1, "#050307");
   context.fillStyle = gradient;
   context.fillRect(0, 0, 1200, 675);
   context.fillStyle = "rgba(255,255,255,0.88)";
@@ -367,7 +413,9 @@ function drawEmptyCard() {
 
 async function drawShareCard(record, pythWon) {
   const context = shareCanvas.getContext("2d");
-  const imageUrl = record.localImage ? `data/${record.localImage}` : record.image;
+  const imageUrl = getShareImageUrl(record);
+  const theme = getLevelTheme(record);
+  const level = getPythenianLevel(record);
   const [image, brandMark] = await Promise.all([
     loadImage(imageUrl),
     loadImage("pythlogoforpythlist.png")
@@ -384,26 +432,40 @@ async function drawShareCard(record, pythWon) {
   const daysFontSize = daysText.length >= 4 ? 72 : daysText.length === 3 ? 88 : 104;
 
   const paper = context.createLinearGradient(0, 0, 1200, 675);
-  paper.addColorStop(0, "#4a3561");
-  paper.addColorStop(0.38, "#342544");
-  paper.addColorStop(0.72, "#251b34");
-  paper.addColorStop(1, "#17111f");
+  paper.addColorStop(0, theme.background[0]);
+  paper.addColorStop(0.38, theme.background[1]);
+  paper.addColorStop(0.72, theme.background[2]);
+  paper.addColorStop(1, theme.background[3]);
   context.fillStyle = paper;
   context.fillRect(0, 0, 1200, 675);
 
   const warmGlow = context.createRadialGradient(118, 96, 24, 118, 96, 620);
-  warmGlow.addColorStop(0, "rgba(242,169,255,0.28)");
+  warmGlow.addColorStop(0, theme.glow);
   warmGlow.addColorStop(0.44, "rgba(124,84,158,0.14)");
   warmGlow.addColorStop(1, "rgba(124,84,158,0)");
   context.fillStyle = warmGlow;
   context.fillRect(0, 0, 1200, 675);
 
   const coolGlow = context.createRadialGradient(1010, 154, 12, 1010, 154, 520);
-  coolGlow.addColorStop(0, "rgba(118,101,185,0.22)");
-  coolGlow.addColorStop(0.52, "rgba(83,234,253,0.06)");
+  coolGlow.addColorStop(0, level === 3 ? "rgba(255,210,54,0.26)" : "rgba(118,101,185,0.22)");
+  coolGlow.addColorStop(0.52, level === 2 ? "rgba(83,234,253,0.12)" : "rgba(83,234,253,0.06)");
   coolGlow.addColorStop(1, "rgba(83,234,253,0)");
   context.fillStyle = coolGlow;
   context.fillRect(0, 0, 1200, 675);
+
+  if (level > 1) {
+    context.save();
+    context.globalAlpha = level === 3 ? 0.22 : 0.16;
+    context.strokeStyle = theme.frame;
+    context.lineWidth = 2;
+    for (let x = -140; x < 1280; x += 112) {
+      context.beginPath();
+      context.moveTo(x, 0);
+      context.lineTo(x + 360, 675);
+      context.stroke();
+    }
+    context.restore();
+  }
 
   context.save();
   context.globalAlpha = 0.34;
@@ -430,12 +492,22 @@ async function drawShareCard(record, pythWon) {
   context.closePath();
   context.fill();
 
-  context.strokeStyle = "rgba(248,245,255,0.14)";
+  context.strokeStyle = level === 1 ? "rgba(248,245,255,0.14)" : theme.line;
   context.lineWidth = 1;
   context.strokeRect(36, 36, 1128, 603);
 
-  context.fillStyle = "#181221";
+  context.fillStyle = theme.panel;
   context.fillRect(72, 78, 510, 522);
+
+  if (level > 1) {
+    context.save();
+    context.shadowColor = theme.frame;
+    context.shadowBlur = level === 3 ? 28 : 18;
+    context.strokeStyle = theme.frame;
+    context.lineWidth = level === 3 ? 5 : 4;
+    context.strokeRect(72, 78, 510, 522);
+    context.restore();
+  }
 
   context.save();
   context.beginPath();
@@ -444,23 +516,45 @@ async function drawShareCard(record, pythWon) {
   context.drawImage(image, 96, 102, 462, 462);
   context.restore();
 
-  context.strokeStyle = "rgba(248,245,255,0.42)";
-  context.lineWidth = 2;
+  context.strokeStyle = level === 1 ? "rgba(248,245,255,0.42)" : theme.frame;
+  context.lineWidth = level === 3 ? 4 : 2;
   context.strokeRect(96, 102, 462, 462);
+
+  context.save();
+  context.fillStyle = level === 1 ? "rgba(83,234,253,0.92)" : theme.frame;
+  drawRoundedRect(context, 112, 118, 118, 38, 8);
+  context.fill();
+  context.fillStyle = level === 3 ? "#17111f" : "#111827";
+  context.font = "900 17px IBM Plex Mono, monospace";
+  context.fillText(theme.shortLabel, 130, 143);
+  context.restore();
 
   context.fillStyle = "rgba(248,245,255,0.68)";
   context.font = "900 17px IBM Plex Mono, monospace";
   context.fillText("PYTHENIANS NFT", 640, 104);
 
+  context.save();
+  context.fillStyle = level === 1 ? "rgba(248,245,255,0.08)" : `${theme.frame}22`;
+  drawRoundedRect(context, 944, 76, 160, 46, 10);
+  context.fill();
+  context.strokeStyle = level === 1 ? "rgba(248,245,255,0.18)" : theme.frame;
+  context.lineWidth = 1;
+  drawRoundedRect(context, 944, 76, 160, 46, 10);
+  context.stroke();
+  context.fillStyle = level === 3 ? "#ffd236" : "#f8f5ff";
+  context.font = "900 18px IBM Plex Mono, monospace";
+  context.fillText(theme.label.toUpperCase(), 966, 105);
+  context.restore();
+
   context.fillStyle = "#f8f5ff";
   context.font = "900 122px Archivo, sans-serif";
   context.fillText(`#${record.number}`, 638, 222);
 
-  context.fillStyle = "rgba(248,245,255,0.56)";
+  context.fillStyle = level === 1 ? "rgba(248,245,255,0.56)" : theme.frame;
   context.font = "700 24px Archivo, sans-serif";
   context.fillText("Current ownership streak", 642, 262);
 
-  context.strokeStyle = "rgba(248,245,255,0.17)";
+  context.strokeStyle = theme.line;
   context.lineWidth = 2;
   context.beginPath();
   context.moveTo(640, 306);
@@ -499,12 +593,12 @@ async function drawShareCard(record, pythWon) {
   context.font = "800 15px IBM Plex Mono, monospace";
   context.fillText("$PYTH WHEEL REWARDS", 640, 512);
 
-  context.fillStyle = pythWon ? "#5ee9b5" : "rgba(248,245,255,0.38)";
+  context.fillStyle = pythWon ? theme.reward : "rgba(248,245,255,0.38)";
   context.font = "900 35px IBM Plex Mono, monospace";
   context.fillText(pythWon ? `${pythWon} $PYTH` : "NOT ENTERED", 640, 546);
 
   const accent = context.createLinearGradient(72, 614, 582, 614);
-  accent.addColorStop(0, "rgba(248,245,255,0.78)");
+  accent.addColorStop(0, level === 1 ? "rgba(248,245,255,0.78)" : theme.frame);
   accent.addColorStop(1, "rgba(248,245,255,0.2)");
   context.strokeStyle = accent;
   context.lineWidth = 4;
@@ -525,14 +619,15 @@ function renderShareResult(record) {
   if (!shareResult) return;
 
   const daysHeld = calculateDaysHeld(record.heldSince);
-  const imageUrl = record.localImage ? `data/${record.localImage}` : record.image;
+  const imageUrl = getShareImageUrl(record);
+  const theme = getLevelTheme(record);
 
   shareResult.innerHTML = `
-    <div class="share-result-media">
+    <div class="share-result-media" style="border-color: ${theme.frame}">
       <img src="${imageUrl}" alt="">
     </div>
     <div class="share-result-body">
-      <p>Pythenians #${record.number}</p>
+      <p>Pythenians #${record.number} <span class="share-level-pill">${theme.label}</span></p>
       <strong>${daysHeld} ${daysHeld === 1 ? "day" : "days"} owned</strong>
       <span>Since ${new Date(record.heldSince).toLocaleDateString("en-US", {
         year: "numeric",
@@ -593,14 +688,15 @@ function renderShareSuggestions(query) {
     </div>
     <div class="share-suggestions-grid">
       ${matches.map((record) => {
-        const imageUrl = record.localImage ? `data/${record.localImage}` : record.image;
+        const imageUrl = getShareImageUrl(record);
+        const theme = getLevelTheme(record);
         return `
           <div class="share-suggestion">
-            <span class="share-suggestion-media">
+            <span class="share-suggestion-media" style="border-color: ${theme.frame}">
               <img src="${imageUrl}" alt="">
             </span>
             <span class="share-suggestion-body">
-              <span>Pythenians #${record.number}</span>
+              <span>Pythenians #${record.number} <span class="share-level-pill">${theme.label}</span></span>
               <strong>${record.daysHeld} ${record.daysHeld === 1 ? "day" : "days"} owned</strong>
               <small>Since ${new Date(record.heldSince).toLocaleDateString("en-US", {
                 year: "numeric",

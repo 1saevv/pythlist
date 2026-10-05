@@ -8,7 +8,8 @@
     "heldSinceSource": "marketplace_sale",
     "verification": "verified",
     "updatedAt": "2026-09-25T12:34:49.760Z",
-    "localImage": "pythenians-images/786.png"
+    "localImage": "pythenians-images/786.png",
+    "level": 1
   },
   "1270": {
     "number": 1270,
@@ -19,18 +20,20 @@
     "heldSinceSource": "marketplace_sale",
     "verification": "verified",
     "updatedAt": "2026-09-25T12:34:49.760Z",
-    "localImage": "pythenians-images/1270.png"
+    "localImage": "pythenians-images/1270.png",
+    "level": 1
   },
   "2446": {
     "number": 2446,
     "mint": "27VLM5uPiRFybe9ax5oU7Wc53BCxv6SGNv2quuUbkCVs",
-    "image": "https://ipfs.pythenians.xyz/nft/ae41eb0d7147d1ad791349a06dda4562f76df65e.png",
+    "image": "https://ipfs.pythenians.xyz/nft/level3/2446.png",
     "heldSince": null,
     "daysHeldAtBuild": null,
     "heldSinceSource": "unresolved",
     "verification": "needs_transfer_history",
     "updatedAt": "2026-09-25T12:34:49.760Z",
-    "localImage": "pythenians-images/2446.png"
+    "localImage": "pythenians-images/2446.webp",
+    "level": 3
   },
   "3360": {
     "number": 3360,
@@ -41,7 +44,8 @@
     "heldSinceSource": "marketplace_sale",
     "verification": "verified",
     "updatedAt": "2026-09-25T12:34:49.760Z",
-    "localImage": "pythenians-images/3360.png"
+    "localImage": "pythenians-images/3360.png",
+    "level": 1
   },
   "3574": {
     "number": 3574,
@@ -52,6 +56,7 @@
     "heldSinceSource": "marketplace_sale",
     "verification": "verified",
     "updatedAt": "2026-09-25T12:34:49.760Z",
-    "localImage": "pythenians-images/3574.png"
+    "localImage": "pythenians-images/3574.png",
+    "level": 1
   }
 }
