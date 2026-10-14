@@ -2258,7 +2258,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "250": {
     "number": 250,
@@ -2769,7 +2769,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "310": {
     "number": 310,
@@ -5560,7 +5560,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "627": {
     "number": 627,
@@ -8971,7 +8971,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "1016": {
     "number": 1016,
@@ -9002,7 +9002,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "1020": {
     "number": 1020,
@@ -9433,7 +9433,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "1068": {
     "number": 1068,
@@ -10591,10 +10591,9 @@
     "image": "https://ipfs.pythenians.xyz/nft/cdf53c9a13563c2f044e5592f36576f502cb4e22.png",
     "localImage": "pythenians-images/1196.webp",
     "level": 1,
-    "heldSince": null,
-    "heldSinceSource": "unresolved",
-    "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "heldSince": "2025-05-23T05:00:18.000Z",
+    "heldSinceSource": "token_transfer_history",
+    "verification": "verified"
   },
   "1197": {
     "number": 1197,
@@ -11335,7 +11334,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "1289": {
     "number": 1289,
@@ -12874,7 +12873,7 @@
     "localImage": "pythenians-images/1463.webp",
     "level": 1,
     "heldSince": "2026-10-12T13:05:28.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "1464": {
@@ -14156,7 +14155,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "1611": {
     "number": 1611,
@@ -14814,8 +14813,8 @@
     "image": "https://ipfs.pythenians.xyz/nft/d6776c8e59c8ae1ba6fd8d381373fc03916bcba7.png",
     "localImage": "pythenians-images/1681.webp",
     "level": 1,
-    "heldSince": "2026-08-18T20:41:21.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-10-13T18:31:32.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "1682": {
@@ -14987,7 +14986,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "1700": {
     "number": 1700,
@@ -15988,7 +15987,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "1819": {
     "number": 1819,
@@ -16039,7 +16038,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: account limited to 15/sec"
   },
   "1824": {
     "number": 1824,
@@ -19670,7 +19669,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "2237": {
     "number": 2237,
@@ -20551,7 +20550,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "2335": {
     "number": 2335,
@@ -25892,7 +25891,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "2911": {
     "number": 2911,
@@ -27003,7 +27002,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "3031": {
     "number": 3031,
@@ -27662,7 +27661,7 @@
     "localImage": "pythenians-images/3100.webp",
     "level": 1,
     "heldSince": "2026-10-13T02:09:08.000Z",
-    "heldSinceSource": "token_transfer_history",
+    "heldSinceSource": "marketplace_sale",
     "verification": "verified"
   },
   "3101": {
@@ -28194,7 +28193,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "3158": {
     "number": 3158,
@@ -29225,7 +29224,7 @@
     "heldSince": null,
     "heldSinceSource": "unresolved",
     "verification": "unresolved",
-    "error": "failed to get transactions: 15/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan"
+    "error": "failed to get transactions: 15/second request limit reached"
   },
   "3269": {
     "number": 3269,
@@ -32373,8 +32372,8 @@
     "image": "https://ipfs.pythenians.xyz/nft/4ef1f4cde7ab8dfa4b215ebeec188ea22e1a3edc.png",
     "localImage": "pythenians-images/3609.webp",
     "level": 1,
-    "heldSince": "2026-07-13T01:35:17.000Z",
-    "heldSinceSource": "marketplace_sale",
+    "heldSince": "2026-10-13T14:21:51.000Z",
+    "heldSinceSource": "token_transfer_history",
     "verification": "verified"
   },
   "3610": {
